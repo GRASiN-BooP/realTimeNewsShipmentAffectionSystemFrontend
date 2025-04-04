@@ -68,11 +68,11 @@ export default function () {
   return (
     <div className="w-full flex flex-col h-screen items-center">
       <Navbar />
-      <div className="w-full flex flex-col md:flex-row justify-center items-center px-5 md:px-14 py-10 gap-5">
+      <div className="w-full flex flex-col md:flex-row justify-center mt-16 items-center px-5 md:px-14 py-10 gap-5">
         <div className="w-full md:w-1/2">
           <Map mapData={mapData} />
         </div>
-        <div className="w-full h-full md:w-1/2 grid grid-cols-4 grid-row-5 gap-2">
+        <div className="w-full h-full md:w-1/2 grid grid-cols-4 grid-row-9 gap-2">
           <div id="newsArea" className="col-span-2 row-span-4">
             <NewsCard
               title="News 1"
@@ -91,7 +91,7 @@ export default function () {
           <div className="col-span-2 row-span-1">
             <Card title="Shipments Under Danger" count={20} state="danger" />
           </div>
-          <div className="col-span-4 row-span-1">
+          <div className="col-span-4 row-span-5">
             <ShipmentTable shipments={shipments} />
           </div>
         </div>

@@ -3,7 +3,7 @@ import React from "react";
 export default function Navbar() {
   const user = false;
   return (
-    <nav className="w-full flex justify-between items-center p-4 h-16 sticky top-0 z-10 bg-white">
+    <nav className="w-full flex justify-between items-center p-4 h-16 fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       <img src="/GoCometLogoWithTitle.png" alt="Brandname" className="w-36" />
       {user && (
         <div>
