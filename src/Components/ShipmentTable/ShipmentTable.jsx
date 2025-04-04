@@ -1,9 +1,12 @@
 import React, { useState, useMemo } from "react";
+import Modal from "../Modal/Modal";
 
 export default function ShipmentTable({ shipments = [] }) {
   const [incidentFilter, setIncidentFilter] = useState("All");
   const [sortField, setSortField] = useState("delay");
   const [sortOrder, setSortOrder] = useState("asc"); // Default to ascending
+  const [selectedShipment, setSelectedShipment] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Unique incidents for filtering
   const uniqueIncidents = [
@@ -15,6 +18,12 @@ export default function ShipmentTable({ shipments = [] }) {
   const handleSort = (field) => {
     setSortOrder(sortField === field && sortOrder === "asc" ? "desc" : "asc");
     setSortField(field);
+  };
+
+  // Handle row click
+  const handleRowClick = (shipment) => {
+    setSelectedShipment(shipment);
+    setIsModalOpen(true);
   };
 
   // Memoized filtering and sorting
@@ -95,7 +104,11 @@ export default function ShipmentTable({ shipments = [] }) {
           </thead>
           <tbody className="text-gray-600">
             {filteredShipments.map((shipment, index) => (
-              <tr key={index} className="border-b hover:bg-gray-50">
+              <tr
+                key={index}
+                className="border-b hover:bg-gray-50 cursor-pointer"
+                onClick={() => handleRowClick(shipment)}
+              >
                 <td className="px-4 py-2">{shipment.vessel}</td>
                 <td className="px-4 py-2">{shipment.originPort}</td>
                 <td className="px-4 py-2">{shipment.destinationPort}</td>
@@ -130,6 +143,42 @@ export default function ShipmentTable({ shipments = [] }) {
           </tbody>
         </table>
       </div>
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        {selectedShipment && (
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold text-gray-800">
+              {selectedShipment.vessel}
+            </h2>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <h3 className="text-sm font-semibold text-gray-600">
+                  Origin Port
+                </h3>
+                <p className="text-lg">{selectedShipment.originPort}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-600">
+                  Destination Port
+                </h3>
+                <p className="text-lg">{selectedShipment.destinationPort}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-600">
+                  Impact Score
+                </h3>
+                <p className="text-lg">{selectedShipment.impact.toFixed(1)}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-600">Delay</h3>
+                <p className="text-lg">{selectedShipment.delay} Days</p>
+              </div>
+            </div>
+            {/* Add more details here as needed */}
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }
