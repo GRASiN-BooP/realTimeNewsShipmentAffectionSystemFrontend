@@ -1,6 +1,9 @@
 import React from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import Map from "../Components/Map/Map";
+import Card from "../Components/Card/Card";
+import NewsCard from "../Components/NewsCard/NewsCard";
+import ShipmentTable from "../Components/ShipmentTable/ShipmentTable";
 
 export default function () {
   const mapData = {
@@ -32,15 +35,62 @@ export default function () {
       radius: [10, 8, 12],
     },
   };
+  const shipments = [
+    {
+      vessel: "Vessel 1",
+      originPort: "Port XYZ",
+      destinationPort: "Port ABC",
+      impact: 2.9,
+      delay: "0 Day",
+    },
+    {
+      vessel: "Vessel 2",
+      originPort: "Port DEF",
+      destinationPort: "Port GHI",
+      impact: 4.5,
+      delay: "1 Day",
+    },
+    {
+      vessel: "Vessel 3",
+      originPort: "Port JKL",
+      destinationPort: "Port MNO",
+      impact: 4.1,
+      delay: "1 Day",
+    },
+    {
+      vessel: "Vessel 4",
+      originPort: "Port GLP",
+      destinationPort: "Port VYS",
+      impact: 5.6,
+      delay: "2 Day",
+    },
+  ];
   return (
     <div className="w-full flex flex-col h-screen items-center">
       <Navbar />
-      <div className="w-full flex flex-col md:flex-row justify-center items-center px-14 py-10 gap-5">
+      <div className="w-full flex flex-col md:flex-row justify-center items-center px-5 md:px-14 py-10 gap-5">
         <div className="w-full md:w-1/2">
           <Map mapData={mapData} />
         </div>
-        <div className="w-full md:w-1/2">
-          <Map mapData={mapData} />
+        <div className="w-full md:w-1/2 grid grid-cols-4 grid-row-3 gap-2">
+          <div id="newsArea" className="col-span-2 row-span-1">
+            <NewsCard
+              title="News 1"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+            />
+          </div>
+          <div
+            id="cardArea"
+            className="flex flex-col col-span-2 row-span-1 gap-1"
+          >
+            <Card title="Shipments Intransit" count={50} state="normal" />
+            <Card title="Shipments Not Affected" count={20} state="normal" />
+            <Card title="Shipments Under Caution" count={20} state="caution" />
+            <Card title="Shipments Under Danger" count={20} state="danger" />
+          </div>
+          <div id="tableArea" className="col-span-4 row-span-2">
+            <ShipmentTable shipments={shipments} />
+          </div>
         </div>
       </div>
     </div>
