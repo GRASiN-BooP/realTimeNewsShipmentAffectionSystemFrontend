@@ -26,7 +26,7 @@ export default function Hero() {
               Keep Your Cargo Moving!
             </p>
             <Link
-              to={`${user ? "/dashboard" : "/login"}`}
+              to={`${user ? "/dashboard" : "/authenticate"}`}
               className="text-white px-4 py-2 rounded-md bg-linear-to-r from-blue-950/90 to-gocomet"
             >
               Get Started
