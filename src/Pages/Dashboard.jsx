@@ -39,6 +39,7 @@ export default function () {
       destinationPort: "Port ABC",
       impact: 2.9,
       delay: 0,
+      incidentType: "Port Strike in Singapore",
     },
     {
       vessel: "Vessel 2",
@@ -46,6 +47,7 @@ export default function () {
       destinationPort: "Port GHI",
       impact: 4.5,
       delay: 1,
+      incidentType: "Port Strike in Singapore",
     },
     {
       vessel: "Vessel 3",
@@ -53,6 +55,7 @@ export default function () {
       destinationPort: "Port MNO",
       impact: 4.1,
       delay: 1,
+      incidentType: "Tsunami in Japan",
     },
     {
       vessel: "Vessel 4",
@@ -60,6 +63,7 @@ export default function () {
       destinationPort: "Port VYS",
       impact: 7.0,
       delay: 4,
+      incidentType: "Tsunami in Japan",
     },
   ];
   return (
@@ -72,8 +76,8 @@ export default function () {
         <div className="w-full h-full md:w-1/2 grid grid-cols-4 grid-row-9 gap-2">
           <div id="newsArea" className="col-span-2 row-span-4">
             <NewsCard
-              title="News 1"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+              title="Port Strike in Singapore"
+              description="A major strike at Singapore port is causing severe delays."
             />
           </div>
           <div className="col-span-2 row-span-1">

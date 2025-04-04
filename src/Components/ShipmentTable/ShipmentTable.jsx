@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import Modal from "../Modal/Modal";
 
 export default function ShipmentTable({ shipments = [] }) {
-  const [incidentFilter, setIncidentFilter] = useState("All");
+  const [incidentFilter, setIncidentFilter] = useState("Sort By News");
   const [sortField, setSortField] = useState("delay");
   const [sortOrder, setSortOrder] = useState("asc"); // Default to ascending
   const [selectedShipment, setSelectedShipment] = useState(null);
@@ -30,7 +30,7 @@ export default function ShipmentTable({ shipments = [] }) {
   const filteredShipments = useMemo(() => {
     return shipments
       .filter((shipment) =>
-        incidentFilter === "All"
+        incidentFilter === "Sort By News"
           ? true
           : shipment.incidentType === incidentFilter
       )
