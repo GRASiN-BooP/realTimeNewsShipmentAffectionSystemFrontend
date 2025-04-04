@@ -6,7 +6,7 @@ const NewsCard = ({ title, description }) => {
       <div className="w-full flex gap-2">
         <img src="/trump.jpeg" alt="" className="w-full rounded-lg" />
       </div>
-      <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-2 sm:mb-3 line-clamp-2">
+      <h3 className="text-base text-gray-700 sm:text-lg md:text-xl font-semibold mb-2 sm:mb-3 line-clamp-2">
         {title}
       </h3>
       <p className="text-sm sm:text-base text-gray-600 line-clamp-3 sm:line-clamp-4">

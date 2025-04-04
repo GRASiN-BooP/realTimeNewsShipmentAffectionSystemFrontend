@@ -12,18 +12,15 @@ export default function () {
         [72.8777, 19.076],
         [121.4737, 31.2304],
         [139.6917, 35.6895],
-        // [-5.71523, 35.971261],
+        [-5.71523, 35.971261],
       ],
       names: [
         "Mumbai Port",
         "Shanghai Port",
         "Tokyo Port",
-        // "Mediterranean Sea",
+        "Mediterranean Sea",
       ],
-      radius: [
-        15, 12, 10,
-        // 10
-      ],
+      radius: [15, 12, 10, 10],
     },
     caution: {
       coordinates: [

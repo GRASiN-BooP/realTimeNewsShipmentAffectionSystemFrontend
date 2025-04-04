@@ -7,7 +7,7 @@ export default function ShipmentTable({ shipments = [] }) {
 
   // Unique incidents for filtering
   const uniqueIncidents = [
-    "All",
+    "Sort By News",
     ...new Set(shipments.map((s) => s.incidentType)),
   ];
 
@@ -55,14 +55,13 @@ export default function ShipmentTable({ shipments = [] }) {
           ))}
         </select>
       </div>
-
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
-          <thead>
+          <thead className="text-gray-700">
             <tr className="border-b bg-gray-100 text-left">
               <th
-                className="px-4 py-2 cursor-pointer"
+                className="px-4 py-2 cursor-pointe"
                 onClick={() => handleSort("vessel")}
               >
                 Vessel{" "}
@@ -94,7 +93,7 @@ export default function ShipmentTable({ shipments = [] }) {
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-gray-600">
             {filteredShipments.map((shipment, index) => (
               <tr key={index} className="border-b hover:bg-gray-50">
                 <td className="px-4 py-2">{shipment.vessel}</td>

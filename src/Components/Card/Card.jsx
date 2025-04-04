@@ -26,7 +26,7 @@ export default function Card(props) {
       >
         {displayCount}
       </div>
-      <p className="text-xl font-bold text-gray-900">{props.title}</p>
+      <p className="text-xl font-bold text-gray-700">{props.title}</p>
     </div>
   );
 }
