@@ -20,13 +20,13 @@ export default function Card(props) {
     springCount.set(props.count);
   }, [props.count]);
   return (
-    <div className="bg-white min-h-16 h-full rounded-lg p-2 flex md:flex-row flex-col items-center justify-between gap-2 shadow-md md:text-right text-center">
+    <div className="bg-white min-h-16 h-full rounded-lg p-2 flex flex-col items-center justify-center text-center gap-2 shadow-md">
       <div
-        className={`${color} w-10 flex items-center justify-center rounded-full p-1 text-white text-2xl font-bold`}
+        className={`${color} w-20 h-20 p-2 flex items-center justify-center rounded-full  text-white text-5xl font-bold`}
       >
         {displayCount}
       </div>
-      <p className="text-xl font-bold text-gray-700">{props.title}</p>
+      <p className="text-md font-semibold text-gray-500">{props.title}</p>
     </div>
   );
 }

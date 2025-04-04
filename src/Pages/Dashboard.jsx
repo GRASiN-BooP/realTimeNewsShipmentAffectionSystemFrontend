@@ -69,27 +69,27 @@ export default function () {
   return (
     <div className="w-full flex flex-col h-screen items-center">
       <Navbar />
-      <div className="w-full flex flex-col md:flex-row justify-center mt-16 items-center px-5 md:px-14 py-10 gap-5">
-        <div className="w-full md:w-1/2">
+      <div className="w-full flex flex-col lg:flex-row justify-center mt-16 items-center px-5 md:px-14 py-10 gap-5">
+        <div className="w-full lg:w-1/2">
           <Map mapData={mapData} />
         </div>
-        <div className="w-full h-full md:w-1/2 grid grid-cols-4 grid-row-9 gap-2">
+        <div className="w-full h-full lg:w-1/2 grid grid-cols-4 grid-row-9 gap-2">
           <div id="newsArea" className="col-span-2 row-span-4">
             <NewsCard
               title="Port Strike in Singapore"
               description="A major strike at Singapore port is causing severe delays."
             />
           </div>
-          <div className="col-span-2 row-span-1">
+          <div className="col-span-1 row-span-2">
             <Card title="Shipments In Transit" count={50} state="normal" />
           </div>
-          <div className="col-span-2 row-span-1">
+          <div className="col-span-1 row-span-2">
             <Card title="Shipments Not Affected" count={20} state="normal" />
           </div>
-          <div className="col-span-2 row-span-1">
+          <div className="col-span-1 row-span-2">
             <Card title="Shipments Under Caution" count={20} state="caution" />
           </div>
-          <div className="col-span-2 row-span-1">
+          <div className="col-span-1 row-span-2">
             <Card title="Shipments Under Danger" count={20} state="danger" />
           </div>
           <div className="col-span-4 row-span-5">
