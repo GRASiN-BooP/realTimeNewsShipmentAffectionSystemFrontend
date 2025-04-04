@@ -6,11 +6,11 @@
     --font-roboto: "Roboto";
 }
 body{
-    background-image: linear-gradient(to bottom, #EBF3FE, white);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
+  background-image: linear-gradient(to bottom, #EBF3FE, white);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
 @layer utilities {
