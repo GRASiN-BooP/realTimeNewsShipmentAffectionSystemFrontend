@@ -72,23 +72,26 @@ export default function () {
         <div className="w-full md:w-1/2">
           <Map mapData={mapData} />
         </div>
-        <div className="w-full md:w-1/2 grid grid-cols-4 grid-row-3 gap-2">
-          <div id="newsArea" className="col-span-2 row-span-1">
+        <div className="w-full h-full md:w-1/2 grid grid-cols-4 grid-row-5 gap-2">
+          <div id="newsArea" className="col-span-2 row-span-4">
             <NewsCard
               title="News 1"
               description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
             />
           </div>
-          <div
-            id="cardArea"
-            className="flex flex-col col-span-2 row-span-1 gap-1"
-          >
+          <div className="col-span-2 row-span-1">
             <Card title="Shipments Intransit" count={50} state="normal" />
+          </div>
+          <div className="col-span-2 row-span-1">
             <Card title="Shipments Not Affected" count={20} state="normal" />
+          </div>
+          <div className="col-span-2 row-span-1">
             <Card title="Shipments Under Caution" count={20} state="caution" />
+          </div>
+          <div className="col-span-2 row-span-1">
             <Card title="Shipments Under Danger" count={20} state="danger" />
           </div>
-          <div id="tableArea" className="col-span-4 row-span-2">
+          <div className="col-span-4 row-span-1">
             <ShipmentTable shipments={shipments} />
           </div>
         </div>

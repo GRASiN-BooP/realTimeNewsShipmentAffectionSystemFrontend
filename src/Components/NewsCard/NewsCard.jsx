@@ -2,7 +2,7 @@ import React from "react";
 
 const NewsCard = ({ title, description }) => {
   return (
-    <div className="w-full bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-5 flex flex-col items-center justify-center">
+    <div className="w-full h-full bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-5 flex flex-col items-center justify-start">
       <img src="/trump.jpeg" alt="" className="w-3/4" />
       <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-2 sm:mb-3 line-clamp-2">
         {title}

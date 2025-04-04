@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ShipmentTable({ shipments = [] }) {
   return (
-    <div className="flex-1 bg-white rounded-lg shadow-md p-4">
+    <div className="flex-1 bg-white rounded-lg shadow-md p-4 h-full">
       <table className="w-full">
         <thead>
           <tr className="border-b">
