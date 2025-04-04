@@ -41,28 +41,28 @@ export default function () {
       originPort: "Port XYZ",
       destinationPort: "Port ABC",
       impact: 2.9,
-      delay: "0 Day",
+      delay: 0,
     },
     {
       vessel: "Vessel 2",
       originPort: "Port DEF",
       destinationPort: "Port GHI",
       impact: 4.5,
-      delay: "1 Day",
+      delay: 1,
     },
     {
       vessel: "Vessel 3",
       originPort: "Port JKL",
       destinationPort: "Port MNO",
       impact: 4.1,
-      delay: "1 Day",
+      delay: 1,
     },
     {
       vessel: "Vessel 4",
       originPort: "Port GLP",
       destinationPort: "Port VYS",
       impact: 5.6,
-      delay: "2 Day",
+      delay: 2,
     },
   ];
   return (
