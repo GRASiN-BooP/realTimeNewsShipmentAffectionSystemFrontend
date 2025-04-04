@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { useUser } from "../Context/User";
+import { useUser } from "../Context/User";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,20 +13,21 @@ export default function Authenticate() {
     name: "",
   });
 
-  //   const { login } = useUser();
+  const { login, signup } = useUser();
   const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const res = await login(formData);
-    // if (res) {
-    //   navigate("/dashboard");
-    // } else {
-    //   navigate("/login");
-    // }
-    navigate("/dashboard");
+    const res = isLogin
+      ? await login({ email: formData.email, password: formData.password })
+      : await signup(formData);
+    if (res) {
+      navigate("/dashboard");
+    } else {
+      navigate("/authenticate");
+    }
   };
 
   const containerVariants = {

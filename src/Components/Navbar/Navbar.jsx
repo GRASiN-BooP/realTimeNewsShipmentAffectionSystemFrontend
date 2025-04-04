@@ -1,8 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "../../Context/User";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const user = false;
+  const { user, logout } = useUser();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    const res = await logout();
+    if (res) {
+      navigate("/");
+    } else {
+      alert("Logout failed");
+    }
+  };
   return (
     <nav className="w-full flex justify-between items-center p-4 h-16 fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       <Link to="/">
@@ -10,7 +21,10 @@ export default function Navbar() {
       </Link>
       {user && (
         <div>
-          <button className="px-4 py-2 rounded-md text-white font-gocomet bg-linear-to-r from-blue-900 to-gocomet">
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 rounded-md text-white font-gocomet bg-linear-to-r from-blue-900 to-gocomet"
+          >
             Logout
           </button>
         </div>
