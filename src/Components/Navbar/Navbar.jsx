@@ -17,12 +17,18 @@ export default function Navbar() {
       )}
       {!user && (
         <div className="flex items-center gap-4">
-          <button className="px-4 py-2 rounded-md text-white font-gocomet bg-linear-to-r from-blue-900 to-gocomet">
+          <Link
+            to="/authenticate"
+            className="px-4 py-2 rounded-md text-white font-gocomet bg-linear-to-r from-blue-900 to-gocomet"
+          >
             Log In
-          </button>
-          <button className="px-4 py-2 rounded-md text-white font-gocomet bg-linear-to-r from-blue-900 to-gocomet">
+          </Link>
+          <Link
+            to="/authenticate"
+            className="px-4 py-2 rounded-md text-white font-gocomet bg-linear-to-r from-blue-900 to-gocomet"
+          >
             Sign Up
-          </button>
+          </Link>
         </div>
       )}
     </nav>
