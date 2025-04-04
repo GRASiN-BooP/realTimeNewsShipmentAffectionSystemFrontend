@@ -61,8 +61,8 @@ export default function () {
       vessel: "Vessel 4",
       originPort: "Port GLP",
       destinationPort: "Port VYS",
-      impact: 5.6,
-      delay: 2,
+      impact: 7.0,
+      delay: 4,
     },
   ];
   return (
@@ -80,7 +80,7 @@ export default function () {
             />
           </div>
           <div className="col-span-2 row-span-1">
-            <Card title="Shipments Intransit" count={50} state="normal" />
+            <Card title="Shipments In Transit" count={50} state="normal" />
           </div>
           <div className="col-span-2 row-span-1">
             <Card title="Shipments Not Affected" count={20} state="normal" />

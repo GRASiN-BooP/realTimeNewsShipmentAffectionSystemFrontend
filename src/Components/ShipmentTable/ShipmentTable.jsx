@@ -110,7 +110,7 @@ export default function ShipmentTable({ shipments = [] }) {
                         : "bg-green-500 text-white"
                     }`}
                   >
-                    {shipment.impact}
+                    {shipment.impact.toFixed(1)}
                   </span>
                 </td>
                 <td className="px-4 py-2">
