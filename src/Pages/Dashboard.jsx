@@ -4,7 +4,7 @@ import Map from "../Components/Map/Map";
 import Card from "../Components/Card/Card";
 import NewsCard from "../Components/NewsCard/NewsCard";
 import ShipmentTable from "../Components/ShipmentTable/ShipmentTable";
-
+import { motion } from "motion/react";
 export default function () {
   const mapData = {
     danger: {
@@ -69,7 +69,12 @@ export default function () {
   return (
     <div className="w-full flex flex-col h-screen items-center">
       <Navbar />
-      <div className="w-full flex flex-col lg:flex-row justify-center mt-16 items-center px-5 md:px-14 py-10 gap-5">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full flex flex-col lg:flex-row justify-center mt-16 items-center px-5 md:px-14 py-10 gap-5"
+      >
         <div className="w-full lg:w-1/2">
           <Map mapData={mapData} />
         </div>
@@ -96,7 +101,7 @@ export default function () {
             <ShipmentTable shipments={shipments} />
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
