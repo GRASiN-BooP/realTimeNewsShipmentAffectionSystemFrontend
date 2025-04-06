@@ -10,43 +10,32 @@ import {
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 const Map = ({ mapData }) => {
-  const [zoom, setZoom] = useState(1);
   const [tooltip, setTooltip] = useState({
     show: false,
     content: "",
     coordinates: [0, 0],
   });
 
-  const handleZoomIn = () => {
-    setZoom((prevZoom) => Math.min(prevZoom * 1.5, 8));
-  };
-
-  const handleZoomOut = () => {
-    setZoom((prevZoom) => Math.max(prevZoom / 1.5, 1));
-  };
-
   const statusLegends = [
     { name: "Caution", color: "#FFA500" },
     { name: "Danger", color: "#FF0000" },
   ];
   return (
-    <div className="w-full bg-white rounded-lg shadow-md p-2 sm:p-3 md:p-4">
-      <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-4">
-        Map View
-      </h2>
-      <div className="relative w-full  before:content-[''] before:absolute before:inset-0 before:rounded-lg before:shadow-[inset_0_0_15px_rgba(0,0,0,0.1)] before:pointer-events-none before:z-10">
+    <div className="w-full bg-white rounded-2xl shadow-md p-2 sm:p-3 md:p-4">
+      <div className="relative w-full overflow-hidden rounded- before:content-[''] before:absolute before:inset-0 before:rounded-md before:shadow-[inset_0_0_15px_rgba(0,0,0,0.1)] before:pointer-events-none before:z-10">
         <ComposableMap
           projectionConfig={{
             rotate: [-10, 0, 0],
             scale: 220,
           }}
           style={{
-            backgroundColor: "hsl(210, 80%, 40%)",
+            backgroundColor: "hsl(210, 60%, 60%)",
             backgroundImage:
-              "radial-gradient(circle at center, hsl(210, 70%, 45%) 0%, hsl(210, 85%, 35%) 100%)",
+              "radial-gradient(circle at center, hsl(210, 50%, 65%) 0%, hsl(210, 65%, 55%) 100%)",
+            borderRadius: "1rem",
           }}
         >
-          <ZoomableGroup zoom={zoom}>
+          <ZoomableGroup zoom={1}>
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
@@ -159,29 +148,14 @@ const Map = ({ mapData }) => {
             )}
           </ZoomableGroup>
         </ComposableMap>
-        {/* Overlay Controls */}
-        <div className="absolute top-4 right-4 flex flex-col gap-2">
-          <button
-            onClick={handleZoomIn}
-            className="px-2 sm:px-3 py-1 bg-black text-white rounded hover:bg-blue-600 text-sm sm:text-base"
-          >
-            +
-          </button>
-          <button
-            onClick={handleZoomOut}
-            className="px-2 sm:px-3 py-1 bg-black text-white rounded hover:bg-blue-600 text-sm sm:text-base"
-          >
-            -
-          </button>
-        </div>
         {/* Overlay Legend */}
-        <div className="absolute bottom-4 left-4 bg-white/90 p-2 rounded-lg shadow-md">
-          <h3 className="text-base sm:text-lg font-medium mb-2">
-            Status Legends
-          </h3>
-          <div className="flex flex-wrap gap-2 sm:gap-4">
+        <div className="absolute bottom-4 left-4 bg-white/70 p-2 rounded-lg shadow-md">
+          <div className="flex flex-col">
             {statusLegends.map((status, index) => (
-              <div key={index} className="flex items-center gap-2">
+              <div
+                key={index}
+                className="flex items-center text-gray-800 gap-2"
+              >
                 <div
                   className="w-3 h-3 sm:w-4 sm:h-4 rounded-full"
                   style={{ backgroundColor: status.color }}
