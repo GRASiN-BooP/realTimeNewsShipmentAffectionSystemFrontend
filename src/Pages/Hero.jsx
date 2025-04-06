@@ -2,9 +2,10 @@ import React from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
+import { useUser } from "../Context/User";
 
 export default function Hero() {
-  const user = false;
+  const { user } = useUser();
   return (
     <div className="w-full flex flex-col h-screen items-center">
       <Navbar />
