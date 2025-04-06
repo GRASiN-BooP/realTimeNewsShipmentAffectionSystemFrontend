@@ -4,10 +4,10 @@ import { useSpring } from "motion/react";
 export default function Card(props) {
   const bgcolor =
     props.state === "danger"
-      ? "bg-red-500/25"
+      ? "bg-red-500/15"
       : props.state === "caution"
-      ? "bg-yellow-500/25"
-      : "bg-blue-500/25";
+      ? "bg-yellow-500/15"
+      : "bg-blue-500/15";
   const color =
     props.state === "danger"
       ? "text-red-500"
