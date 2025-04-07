@@ -153,49 +153,14 @@ export default function ShipmentTable({ shipments = [] }) {
           </tbody>
         </table>
       </div>
+
       {/* Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        {selectedShipment && (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-gray-700">
-              {selectedShipment.vessel}
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-500">
-                  Origin Port
-                </h3>
-                <p className="text-lg text-gray-600">
-                  {selectedShipment.originPort}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-gray-500">
-                  Destination Port
-                </h3>
-                <p className="text-lg text-gray-600">
-                  {selectedShipment.destinationPort}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-gray-500">
-                  Impact Score
-                </h3>
-                <p className="text-lg text-gray-600">
-                  {selectedShipment.impact.toFixed(1)}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-gray-500">Delay</h3>
-                <p className="text-lg text-gray-600">
-                  {selectedShipment.delay} Days
-                </p>
-              </div>
-            </div>
-            {/* Add more details here as needed */}
-          </div>
-        )}
-      </Modal>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={selectedShipment?.vessel}
+        data={selectedShipment}
+      />
     </div>
   );
 }
