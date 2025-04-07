@@ -17,6 +17,10 @@ export default function () {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const getAllSummaryCount = async () => {
+      const response = await getSummaryCount();
+      setSummaryCount(response);
+    };
     const getAllIncidents = async () => {
       try {
         const response = await getIncidents();
@@ -24,6 +28,7 @@ export default function () {
         setMapDataAPI(parsedData.mapData);
         setShipmentsAPI(parsedData.shipments);
         setNewsItems(parsedData.news);
+        getAllIncidents();
       } catch (error) {
         console.error("Error loading data:", error);
       } finally {
@@ -31,6 +36,7 @@ export default function () {
       }
     };
     getAllIncidents();
+    getAllSummaryCount();
   }, []);
 
   return (
@@ -60,16 +66,32 @@ export default function () {
             <NewsCarousel newsItems={newsItems} />
           </div>
           <div className="col-span-1 row-span-2">
-            <Card title="Shipments In Transit" count={50} state="normal" />
+            <Card
+              title="Shipments In Transit"
+              count={summaryCount.shipmentInTransit}
+              state="normal"
+            />
           </div>
           <div className="col-span-1 row-span-2">
-            <Card title="Shipments Not Affected" count={20} state="normal" />
+            <Card
+              title="Shipments Not Affected"
+              count={summaryCount.shipmentNotAffected}
+              state="normal"
+            />
           </div>
           <div className="col-span-1 row-span-2">
-            <Card title="Shipments Under Caution" count={20} state="caution" />
+            <Card
+              title="Shipments Under Caution"
+              count={summaryCount.shipmentUnderCaution}
+              state="caution"
+            />
           </div>
           <div className="col-span-1 row-span-2">
-            <Card title="Shipments Under Danger" count={20} state="danger" />
+            <Card
+              title="Shipments Under Danger"
+              count={summaryCount.shipmentUnderDanger}
+              state="danger"
+            />
           </div>
           <div className="col-span-4 row-span-5">
             <ShipmentTable shipments={shipmentsAPI} />
