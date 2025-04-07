@@ -9,7 +9,7 @@ import {
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-const Map = ({ mapData }) => {
+const Map = ({ mapData, onAreaClick }) => {
   const [tooltip, setTooltip] = useState({
     show: false,
     content: "",
@@ -20,6 +20,14 @@ const Map = ({ mapData }) => {
     { name: "Caution", color: "#FFA500" },
     { name: "Danger", color: "#FF0000" },
   ];
+
+  const handleAreaClick = (coordinates, radius, type, name) => {
+    console.log("Map area clicked:", { coordinates, radius, type, name });
+    if (onAreaClick) {
+      onAreaClick(coordinates, radius, type, name);
+    }
+  };
+
   return (
     <div className="w-full bg-white rounded-2xl shadow-md p-2 sm:p-3 md:p-4">
       <div className="relative w-full overflow-hidden rounded- before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_0_0_15px_rgba(0,0,0,0.1)] before:pointer-events-none before:z-10">
@@ -84,6 +92,14 @@ const Map = ({ mapData }) => {
                   fillOpacity={0.3}
                   stroke="#FF0000"
                   strokeWidth={2}
+                  onClick={() =>
+                    handleAreaClick(
+                      coord,
+                      mapData.danger.radius[index],
+                      "danger",
+                      mapData.danger.names[index]
+                    )
+                  }
                   onMouseEnter={() => {
                     setTooltip({
                       show: true,
@@ -110,6 +126,14 @@ const Map = ({ mapData }) => {
                   fillOpacity={0.3}
                   stroke="#FFA500"
                   strokeWidth={2}
+                  onClick={() =>
+                    handleAreaClick(
+                      coord,
+                      mapData.caution.radius[index],
+                      "caution",
+                      mapData.caution.names[index]
+                    )
+                  }
                   onMouseEnter={() => {
                     setTooltip({
                       show: true,

@@ -1,18 +1,19 @@
 import React from "react";
 import Navbar from "../Components/Navbar/Navbar";
-import Map from "../Components/Map/Map";
+import MapWithShipments from "../Components/Map/MapWithShipments";
 import Card from "../Components/Card/Card";
 import NewsCard from "../Components/NewsCard/NewsCard";
 import ShipmentTable from "../Components/ShipmentTable/ShipmentTable";
 import { motion } from "motion/react";
+
 export default function () {
   const mapData = {
     danger: {
       coordinates: [
-        [72.8777, 19.076],
-        [121.4737, 31.2304],
-        [139.6917, 35.6895],
-        [-5.71523, 35.971261],
+        [72.8777, 19.076], // Mumbai
+        [121.4737, 31.2304], // Shanghai
+        [139.6917, 35.6895], // Tokyo
+        [-5.71523, 35.971261], // Mediterranean
       ],
       names: [
         "Mumbai Port",
@@ -24,14 +25,15 @@ export default function () {
     },
     caution: {
       coordinates: [
-        [77.1025, 28.7041],
-        [114.1095, 22.3964],
-        [103.8198, 1.3521],
+        [77.1025, 28.7041], // Delhi
+        [114.1095, 22.3964], // Hong Kong
+        [103.8198, 1.3521], // Singapore
       ],
       names: ["Delhi Port", "Hong Kong Port", "Singapore Port"],
       radius: [10, 8, 12],
     },
   };
+
   const shipments = [
     {
       vessel: "Vessel 1",
@@ -40,6 +42,7 @@ export default function () {
       impact: 2.9,
       delay: 0,
       incidentType: "Port Strike in Singapore",
+      coordinates: [103.8198, 1.3521], // Singapore
     },
     {
       vessel: "Vessel 2",
@@ -48,6 +51,7 @@ export default function () {
       impact: 4.5,
       delay: 1,
       incidentType: "Port Strike in Singapore",
+      coordinates: [103.8198, 1.3521], // Singapore
     },
     {
       vessel: "Vessel 3",
@@ -56,6 +60,7 @@ export default function () {
       impact: 4.1,
       delay: 1,
       incidentType: "Tsunami in Japan",
+      coordinates: [139.6917, 35.6895], // Tokyo
     },
     {
       vessel: "Vessel 4",
@@ -64,8 +69,28 @@ export default function () {
       impact: 7.0,
       delay: 4,
       incidentType: "Tsunami in Japan",
+      coordinates: [139.6917, 35.6895], // Tokyo
+    },
+    {
+      vessel: "Vessel 5",
+      originPort: "Port ABC",
+      destinationPort: "Port XYZ",
+      impact: 3.2,
+      delay: 2,
+      incidentType: "Port Strike in Singapore",
+      coordinates: [114.1095, 22.3964], // Hong Kong
+    },
+    {
+      vessel: "Vessel 6",
+      originPort: "Port DEF",
+      destinationPort: "Port GHI",
+      impact: 5.8,
+      delay: 3,
+      incidentType: "Port Strike in Singapore",
+      coordinates: [72.8777, 19.076], // Mumbai
     },
   ];
+
   return (
     <div className="w-full flex flex-col h-screen items-center">
       <Navbar />
@@ -76,7 +101,7 @@ export default function () {
         className="w-full flex flex-col lg:flex-row justify-center mt-16 items-center px-5 md:px-14 py-10 gap-5"
       >
         <div className="w-full lg:w-1/2">
-          <Map mapData={mapData} />
+          <MapWithShipments mapData={mapData} shipments={shipments} />
         </div>
         <div className="w-full h-full lg:w-1/2 grid grid-cols-4 grid-row-9 gap-2">
           <div id="newsArea" className="col-span-2 row-span-4">
