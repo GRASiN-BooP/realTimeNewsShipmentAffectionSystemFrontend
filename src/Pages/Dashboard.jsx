@@ -10,7 +10,7 @@ import { useUser } from "../Context/User";
 import parseIncidentsData from "../Services/ParseResponse";
 
 export default function () {
-  const { getSummaryCount, getIncidents } = useUser();
+  const { getSummaryCount, getIncidents, user } = useUser();
   const [summaryCount, setSummaryCount] = useState(0);
   const [shipmentsAPI, setShipmentsAPI] = useState([]);
   const [mapDataAPI, setMapDataAPI] = useState({});
@@ -30,16 +30,16 @@ export default function () {
         setMapDataAPI(parsedData.mapData);
         setShipmentsAPI(parsedData.shipments);
         setNewsItems(parsedData.news);
-        getAllIncidents();
+        getAllSummaryCount();
       } catch (error) {
         console.error("Error loading data:", error);
       } finally {
         setIsLoading(false);
       }
     };
+    // Initial data fetch
     getAllIncidents();
-    getAllSummaryCount();
-  }, []);
+  }, [user]);
 
   const toggleFullScreenMap = () => {
     setIsFullScreenMap(!isFullScreenMap);
