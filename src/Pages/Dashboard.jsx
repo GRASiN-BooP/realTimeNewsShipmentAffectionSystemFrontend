@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import MapWithShipments from "../Components/Map/MapWithShipments";
 import Card from "../Components/Card/Card";
-import NewsCard from "../Components/NewsCard/NewsCard";
+import NewsCarousel from "../Components/NewsCarousel/NewsCarousel";
 import ShipmentTable from "../Components/ShipmentTable/ShipmentTable";
 import { motion } from "motion/react";
 
@@ -105,10 +105,7 @@ export default function () {
         </div>
         <div className="w-full h-full lg:w-1/2 grid grid-cols-4 grid-row-9 gap-2">
           <div id="newsArea" className="col-span-2 row-span-4">
-            <NewsCard
-              title="Port Strike in Singapore"
-              description="A major strike at Singapore port is causing severe delays."
-            />
+            <NewsCarousel />
           </div>
           <div className="col-span-1 row-span-2">
             <Card title="Shipments In Transit" count={50} state="normal" />

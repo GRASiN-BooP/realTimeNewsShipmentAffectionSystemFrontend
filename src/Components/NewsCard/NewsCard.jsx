@@ -1,10 +1,10 @@
 import React from "react";
 
-const NewsCard = ({ title, description }) => {
+const NewsCard = ({ title, description, image = "/trump.jpeg" }) => {
   return (
-    <div className="w-full h-full bg-white rounded-lg shadow-md p-3 gap-2 flex flex-col items-start justify-start">
+    <div className="w-full h-full bg-white py-3 gap-2 flex flex-col items-start justify-start">
       <div className="w-full flex gap-2">
-        <img src="/trump.jpeg" alt="" className="w-full rounded-lg" />
+        <img src={image} alt={title} className="w-full rounded-lg" />
       </div>
       <div className="flex flex-col">
         <h3 className="text-base text-gray-700 sm:text-lg md:text-xl font-semibold  line-clamp-2">

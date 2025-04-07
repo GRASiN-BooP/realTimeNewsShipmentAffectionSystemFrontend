@@ -23,3 +23,35 @@ body{
     }
   }
   
+/* Slick carousel custom styles with Tailwind */
+.slick-slider {
+  @apply w-full h-full;
+}
+
+.slick-slide {
+  @apply h-full;
+}
+
+.slick-track {
+  @apply flex items-stretch;
+}
+
+.slick-slide > div {
+  @apply h-full;
+}
+
+/* Slide transition for carousel */
+.slick-slide {
+  @apply transition-transform duration-500;
+}
+
+/* Hide overflow for slide effect */
+.slick-list {
+  @apply overflow-hidden;
+}
+
+/* Ensure proper positioning for slides */
+.slick-track {
+  @apply flex items-stretch;
+}
+  
