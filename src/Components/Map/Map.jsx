@@ -15,7 +15,6 @@ const Map = ({
     caution: { coordinates: [], names: [], radius: [] },
   },
   onAreaClick,
-  isFullScreen = false,
 }) => {
   const [tooltip, setTooltip] = useState({
     show: false,
@@ -42,35 +41,21 @@ const Map = ({
   };
 
   return (
-    <div
-      className={`w-full ${
-        isFullScreen
-          ? "h-full"
-          : "bg-white rounded-2xl shadow-md p-2 sm:p-3 md:p-4"
-      }`}
-    >
-      <div
-        className={`relative w-full overflow-hidden ${
-          isFullScreen
-            ? "h-full"
-            : "rounded- before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_0_0_15px_rgba(0,0,0,0.1)] before:pointer-events-none before:z-10"
-        }`}
-      >
+    <div className="w-full bg-white rounded-2xl shadow-md p-2 sm:p-3 md:p-4">
+      <div className="relative w-full overflow-hidden rounded- before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_0_0_15px_rgba(0,0,0,0.1)] before:pointer-events-none before:z-10">
         <ComposableMap
           projectionConfig={{
             rotate: [-10, 0, 0],
-            scale: isFullScreen ? 300 : 220,
+            scale: 220,
           }}
           style={{
             backgroundColor: "hsl(197, 100%, 85%)",
             backgroundImage:
               "radial-gradient(circle at center, hsl(197, 100%, 90%) 0%, hsl(197, 100%, 80%) 100%)",
-            borderRadius: isFullScreen ? "0" : "1rem",
-            height: isFullScreen ? "100vh" : "auto",
-            width: "100%",
+            borderRadius: "1rem",
           }}
         >
-          <ZoomableGroup zoom={isFullScreen ? 1.2 : 1}>
+          <ZoomableGroup zoom={1}>
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
@@ -127,23 +112,19 @@ const Map = ({
                       safeMapData.danger.names[index]
                     )
                   }
-                  onMouseEnter={() =>
+                  onMouseEnter={() => {
                     setTooltip({
                       show: true,
                       content: safeMapData.danger.names[index],
                       coordinates: coord,
-                    })
-                  }
-                  onMouseLeave={() =>
+                    });
+                  }}
+                  onMouseLeave={() => {
                     setTooltip({
                       show: false,
                       content: "",
                       coordinates: [0, 0],
-                    })
-                  }
-                  style={{
-                    cursor: "pointer",
-                    transition: "all 250ms",
+                    });
                   }}
                 />
               </Marker>
@@ -165,62 +146,62 @@ const Map = ({
                       safeMapData.caution.names[index]
                     )
                   }
-                  onMouseEnter={() =>
+                  onMouseEnter={() => {
                     setTooltip({
                       show: true,
                       content: safeMapData.caution.names[index],
                       coordinates: coord,
-                    })
-                  }
-                  onMouseLeave={() =>
+                    });
+                  }}
+                  onMouseLeave={() => {
                     setTooltip({
                       show: false,
                       content: "",
                       coordinates: [0, 0],
-                    })
-                  }
-                  style={{
-                    cursor: "pointer",
-                    transition: "all 250ms",
+                    });
                   }}
                 />
               </Marker>
             ))}
+            {/* Tooltip Marker */}
+            {tooltip.show && (
+              <Marker coordinates={tooltip.coordinates}>
+                <g
+                  transform="translate(-20, -20)"
+                  className="pointer-events-none"
+                >
+                  <text
+                    x="0"
+                    y="0"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    className="text-xs font-medium"
+                  >
+                    {tooltip.content}
+                  </text>
+                </g>
+              </Marker>
+            )}
           </ZoomableGroup>
         </ComposableMap>
-        {tooltip.show && !isFullScreen && (
-          <div
-            style={{
-              position: "absolute",
-              top: `${tooltip.coordinates[1]}px`,
-              left: `${tooltip.coordinates[0]}px`,
-              transform: "translate(-50%, -130%)",
-              backgroundColor: "rgba(0, 0, 0, 0.8)",
-              color: "white",
-              padding: "5px 10px",
-              borderRadius: "4px",
-              fontSize: "12px",
-              pointerEvents: "none",
-              zIndex: 1000,
-            }}
-          >
-            {tooltip.content}
-          </div>
-        )}
-      </div>
-      {!isFullScreen && (
-        <div className="flex justify-center mt-2 gap-4">
-          {statusLegends.map((legend) => (
-            <div key={legend.name} className="flex items-center gap-1">
+        {/* Overlay Legend */}
+        <div className="absolute bottom-4 left-4 bg-white/70 p-2 rounded-lg shadow-md">
+          <div className="flex flex-col">
+            {statusLegends.map((status, index) => (
               <div
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: legend.color }}
-              ></div>
-              <span className="text-xs text-gray-600">{legend.name}</span>
-            </div>
-          ))}
+                key={index}
+                className="flex items-center text-gray-800 gap-2"
+              >
+                <div
+                  className="w-3 h-3 sm:w-4 sm:h-4 rounded-full"
+                  style={{ backgroundColor: status.color }}
+                />
+                <span className="text-sm sm:text-base">{status.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
