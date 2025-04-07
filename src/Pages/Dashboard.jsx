@@ -11,100 +11,15 @@ import parseIncidentsData from "../Services/ParseResponse";
 export default function () {
   const { getSummaryCount, getIncidents } = useUser();
   const [summaryCount, setSummaryCount] = useState(0);
-  const [incidents, setIncidents] = useState([]);
   const [shipmentsAPI, setShipmentsAPI] = useState([]);
   const [mapDataAPI, setMapDataAPI] = useState({});
   const [newsItems, setNewsItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // const mapData = {
-  //   danger: {
-  //     coordinates: [
-  //       [72.8777, 19.076], // Mumbai
-  //       [121.4737, 31.2304], // Shanghai
-  //       [139.6917, 35.6895], // Tokyo
-  //       [-5.71523, 35.971261], // Mediterranean
-  //     ],
-  //     names: [
-  //       "Mumbai Port",
-  //       "Shanghai Port",
-  //       "Tokyo Port",
-  //       "Mediterranean Sea",
-  //     ],
-  //     radius: [15, 12, 10, 10],
-  //   },
-  //   caution: {
-  //     coordinates: [
-  //       [77.1025, 28.7041], // Delhi
-  //       [114.1095, 22.3964], // Hong Kong
-  //       [103.8198, 1.3521], // Singapore
-  //     ],
-  //     names: ["Delhi Port", "Hong Kong Port", "Singapore Port"],
-  //     radius: [10, 8, 12],
-  //   },
-  // };
-  // const shipments = [
-  //   {
-  //     vessel: "Vessel 1",
-  //     originPort: "Port XYZ",
-  //     destinationPort: "Port ABC",
-  //     impact: 2.9,
-  //     delay: 0,
-  //     incidentType: "Port Strike in Singapore",
-  //     coordinates: [103.8198, 1.3521], // Singapore
-  //   },
-  //   {
-  //     vessel: "Vessel 2",
-  //     originPort: "Port DEF",
-  //     destinationPort: "Port GHI",
-  //     impact: 4.5,
-  //     delay: 1,
-  //     incidentType: "Port Strike in Singapore",
-  //     coordinates: [103.8198, 1.3521], // Singapore
-  //   },
-  //   {
-  //     vessel: "Vessel 3",
-  //     originPort: "Port JKL",
-  //     destinationPort: "Port MNO",
-  //     impact: 4.1,
-  //     delay: 1,
-  //     incidentType: "Tsunami in Japan",
-  //     coordinates: [139.6917, 35.6895], // Tokyo
-  //   },
-  //   {
-  //     vessel: "Vessel 4",
-  //     originPort: "Port GLP",
-  //     destinationPort: "Port VYS",
-  //     impact: 7.0,
-  //     delay: 4,
-  //     incidentType: "Tsunami in Japan",
-  //     coordinates: [139.6917, 35.6895], // Tokyo
-  //   },
-  //   {
-  //     vessel: "Vessel 5",
-  //     originPort: "Port ABC",
-  //     destinationPort: "Port XYZ",
-  //     impact: 3.2,
-  //     delay: 2,
-  //     incidentType: "Port Strike in Singapore",
-  //     coordinates: [114.1095, 22.3964], // Hong Kong
-  //   },
-  //   {
-  //     vessel: "Vessel 6",
-  //     originPort: "Port DEF",
-  //     destinationPort: "Port GHI",
-  //     impact: 5.8,
-  //     delay: 3,
-  //     incidentType: "Port Strike in Singapore",
-  //     coordinates: [72.8777, 19.076], // Mumbai
-  //   },
-  // ];
-
   useEffect(() => {
     const getAllIncidents = async () => {
       try {
         const response = await getIncidents();
-        setIncidents(response);
         const parsedData = parseIncidentsData(response);
         setMapDataAPI(parsedData.mapData);
         setShipmentsAPI(parsedData.shipments);
