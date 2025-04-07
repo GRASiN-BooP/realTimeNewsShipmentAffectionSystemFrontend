@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Map from "./Map";
 
-const MapWithShipments = ({ mapData, shipments }) => {
+const MapWithShipments = ({ mapData, shipments, isFullScreen = false }) => {
   const [selectedArea, setSelectedArea] = useState(null);
 
   // Function to find affected shipments in a radius
@@ -61,11 +61,21 @@ const MapWithShipments = ({ mapData, shipments }) => {
   };
 
   return (
-    <div className="relative">
-      <Map mapData={mapData} onAreaClick={handleAreaClick} />
+    <div
+      className={`relative ${
+        isFullScreen ? "h-full w-full flex flex-col" : ""
+      }`}
+    >
+      <div className={`${isFullScreen ? "flex-grow h-full" : ""}`}>
+        <Map
+          mapData={mapData}
+          onAreaClick={handleAreaClick}
+          isFullScreen={isFullScreen}
+        />
+      </div>
 
       {/* Simple Modal Implementation */}
-      {selectedArea && (
+      {selectedArea && !isFullScreen && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto hide-scrollbar">
             <div className="flex justify-between items-center mb-4">
@@ -101,41 +111,26 @@ const MapWithShipments = ({ mapData, shipments }) => {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="text-gray-500">
+                  <tbody>
                     {selectedArea.affectedShipments.map((shipment, index) => (
-                      <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-4 py-2 text-sm">{shipment.vessel}</td>
-                        <td className="px-4 py-2 text-sm">
+                      <tr
+                        key={index}
+                        className="border-t border-gray-200 hover:bg-gray-50"
+                      >
+                        <td className="px-4 py-2 text-sm text-gray-700">
+                          {shipment.vessel}
+                        </td>
+                        <td className="px-4 py-2 text-sm text-gray-700">
                           {shipment.originPort}
                         </td>
-                        <td className="px-4 py-2 text-sm">
+                        <td className="px-4 py-2 text-sm text-gray-700">
                           {shipment.destinationPort}
                         </td>
-                        <td className="px-4 py-2 text-sm">
-                          <span
-                            className={`px-2 py-1 rounded text-xs ${
-                              shipment.impact > 6.5
-                                ? "bg-red-500/25 text-red-500"
-                                : shipment.impact > 3.5
-                                ? "bg-yellow-500/25 text-yellow-500"
-                                : "bg-green-500/25 text-green-500"
-                            }`}
-                          >
-                            {shipment.impact.toFixed(1)}
-                          </span>
+                        <td className="px-4 py-2 text-sm text-gray-700">
+                          {shipment.impact}
                         </td>
-                        <td className="px-4 py-2 text-sm">
-                          <span
-                            className={`px-2 py-1 rounded text-xs ${
-                              shipment.delay > 3
-                                ? "bg-red-500/25 text-red-500"
-                                : shipment.delay > 1
-                                ? "bg-orange-500/25 text-orange-500"
-                                : "bg-green-500/25 text-green-500"
-                            }`}
-                          >
-                            {shipment.delay} Days
-                          </span>
+                        <td className="px-4 py-2 text-sm text-gray-700">
+                          {shipment.delay} days
                         </td>
                       </tr>
                     ))}
@@ -143,7 +138,7 @@ const MapWithShipments = ({ mapData, shipments }) => {
                 </table>
               </div>
             ) : (
-              <p className="text-gray-500">
+              <p className="text-gray-500 text-center py-4">
                 No shipments affected in this area.
               </p>
             )}

@@ -30,7 +30,7 @@ const NewsCard = ({
         />
       </div>
       <div className="flex flex-col">
-        <p className="text-base text-gray-700 sm:text-lg md:text-xl font-semibold inline">
+        <p className="text-base text-gray-700 sm:text-lg md:text-xl font-semibold inline overflow-ellipsis">
           {title}
         </p>
         <p className="text-sm sm:text-base text-gray-600 line-clamp-3 sm:line-clamp-4 mt-1">
