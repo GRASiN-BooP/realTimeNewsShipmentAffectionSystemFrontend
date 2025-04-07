@@ -5,9 +5,23 @@ const NewsCard = ({
   description,
   image = "/trump.jpeg",
   incidentType,
+  url,
 }) => {
+  const handleClick = () => {
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
-    <div className="w-full bg-white py-3 gap-2 flex flex-col items-start justify-start">
+    <div
+      className={`w-full bg-white py-3 gap-2 flex flex-col items-start justify-start ${
+        url
+          ? "cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+          : ""
+      }`}
+      onClick={handleClick}
+    >
       <div className="w-full h-44 flex gap-2">
         <img
           src={image}
