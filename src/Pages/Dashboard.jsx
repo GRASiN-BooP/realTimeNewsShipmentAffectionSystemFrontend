@@ -28,7 +28,7 @@ export default function () {
         setMapDataAPI(parsedData.mapData);
         setShipmentsAPI(parsedData.shipments);
         setNewsItems(parsedData.news);
-        getAllIncidents();
+        getAllSummaryCount();
       } catch (error) {
         console.error("Error loading data:", error);
       } finally {
@@ -36,7 +36,6 @@ export default function () {
       }
     };
     getAllIncidents();
-    getAllSummaryCount();
   }, []);
 
   return (
