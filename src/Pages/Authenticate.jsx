@@ -29,7 +29,7 @@ export default function Authenticate() {
       } else {
         const success = await signup(formData);
         if (success) {
-          navigate("/login");
+          navigate("/authenticate");
         }
       }
     } catch (error) {
