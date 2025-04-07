@@ -13,6 +13,7 @@ export default function parseIncidentsData(apiData) {
   };
 
   const shipments = [];
+  const news = [];
 
   const severityToRadius = {
     High: 15,
@@ -21,11 +22,13 @@ export default function parseIncidentsData(apiData) {
   };
 
   const addedAreas = new Set(); // To avoid duplicate coordinates in mapData
+  let newsIdCounter = 1; // To assign unique IDs to news items
 
   for (const incident of apiData.incidents) {
     const severity = incident.severity;
     const targetGroup = severity === "High" ? mapData.danger : mapData.caution;
 
+    // Parse affected areas
     for (const area of incident.affected_area) {
       const key = `${area.coordinates.latitude},${area.coordinates.longitude}`;
 
@@ -40,13 +43,14 @@ export default function parseIncidentsData(apiData) {
       }
     }
 
+    // Parse shipments
     for (const shipment of incident.affected_shipments) {
       shipments.push({
         vessel: shipment.vessel_name,
         originPort: shipment.origin_port,
         destinationPort: shipment.destination_port,
         impact: shipment.impact_score,
-        delay: parseInt(shipment.total_delay), // "30 days" → 30
+        delay: parseInt(shipment.total_delay), // e.g., "30 days" → 30
         incidentType: shipment.incident.trim(),
         coordinates: [
           shipment.current_coordinates.longitude,
@@ -54,7 +58,18 @@ export default function parseIncidentsData(apiData) {
         ],
       });
     }
+
+    // Parse news
+    for (const newsItem of incident.news || []) {
+      news.push({
+        id: newsIdCounter++,
+        title: newsItem.title,
+        description: newsItem.summary, // Use 'summary' as description
+        image: newsItem.image || "/placeholder.jpg", // fallback image if not provided
+        incidentType: incident.type,
+      });
+    }
   }
 
-  return { mapData, shipments };
+  return { mapData, shipments, news };
 }
