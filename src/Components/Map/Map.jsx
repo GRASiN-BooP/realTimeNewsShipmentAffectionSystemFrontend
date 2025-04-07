@@ -22,7 +22,7 @@ const Map = ({ mapData }) => {
   ];
   return (
     <div className="w-full bg-white rounded-2xl shadow-md p-2 sm:p-3 md:p-4">
-      <div className="relative w-full overflow-hidden rounded- before:content-[''] before:absolute before:inset-0 before:rounded-md before:shadow-[inset_0_0_15px_rgba(0,0,0,0.1)] before:pointer-events-none before:z-10">
+      <div className="relative w-full overflow-hidden rounded- before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:shadow-[inset_0_0_15px_rgba(0,0,0,0.1)] before:pointer-events-none before:z-10">
         <ComposableMap
           projectionConfig={{
             rotate: [-10, 0, 0],
@@ -39,10 +39,10 @@ const Map = ({ mapData }) => {
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
-                  // Generate a neutral color with slight variations
-                  const hue = 40 + (Math.random() * 20 - 10); // Base beige (40) with ±10 variation
-                  const saturation = 20 + Math.random() * 10; // 20-30% saturation
-                  const lightness = 85 + Math.random() * 5; // 85-90% lightness
+                  // Generate various shades of white
+                  const hue = 0; // Neutral hue
+                  const saturation = 0; // No saturation for whites
+                  const lightness = 95 + Math.random() * 5; // 95-100% lightness for whites
                   return (
                     <Geography
                       key={geo.rsmKey}
@@ -57,15 +57,15 @@ const Map = ({ mapData }) => {
                         },
                         hover: {
                           outline: "none",
-                          fill: `hsl(${hue}, ${saturation + 5}%, ${
-                            lightness - 5
+                          fill: `hsl(${hue}, ${saturation}%, ${
+                            lightness - 2
                           }%)`,
                           transition: "all 250ms",
                         },
                         pressed: {
                           outline: "none",
-                          fill: `hsl(${hue}, ${saturation + 10}%, ${
-                            lightness - 10
+                          fill: `hsl(${hue}, ${saturation}%, ${
+                            lightness - 4
                           }%)`,
                           transition: "all 250ms",
                         },
