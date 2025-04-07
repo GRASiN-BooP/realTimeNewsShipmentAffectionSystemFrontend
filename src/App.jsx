@@ -10,7 +10,7 @@ function App() {
   return (
     <div>
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={{
           // Default options for all toasts
           duration: 3000,

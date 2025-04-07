@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { ENDPOINTS, axiosInstance } from "../Services/API";
+import toast from "react-hot-toast";
 
 const userContext = createContext();
 
@@ -13,101 +14,73 @@ export default function UserContextProvider({ children }) {
     return storedToken ? storedToken : null;
   });
 
-  const login = async (formData) => {
-    // try {
-    //   const respone = await axiosInstance.post(ENDPOINTS.LOGIN, formData);
-    //   if (respone.success) {
-    //     setUser(respone.data.user);
-    //     setToken(respone.data.token);
-    //     localStorage.setItem("user", JSON.stringify(respone.data.user));
-    //     localStorage.setItem("token", respone.data.token);
-    //     return true;
-    //   } else {
-    //     throw new Error(respone.message);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   return false;
-    // }
-    const mockUser = {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      role: "admin",
-    };
-    const mockToken = "1234567890";
-
-    // First set the data in localStorage
-    localStorage.setItem("user", JSON.stringify(mockUser));
-    localStorage.setItem("token", mockToken);
-
-    // Then update the state
-    setUser(mockUser);
-    setToken(mockToken);
-
-    return true;
+  const login = async (email, password) => {
+    const loadingToast = toast.loading("Logging in...");
+    try {
+      const response = await axiosInstance.post(ENDPOINTS.LOGIN, {
+        email: email,
+        password: password,
+      });
+      if (response.data.success) {
+        setUser(response.data.data.user);
+        setToken(response.data.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.data.user));
+        localStorage.setItem("token", response.data.data.token);
+        toast.dismiss(loadingToast);
+        toast.success("Successfully logged in!");
+        return true;
+      } else {
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      toast.error(error.message || "Login failed. Please try again.");
+      console.log(error);
+      return false;
+    }
   };
 
   const signup = async (formData) => {
-    // try {
-    //   const respone = await axiosInstance.post(ENDPOINTS.SIGNUP, formData);
-    //   if (respone.success) {
-    //     setUser(respone.data.user);
-    //     setToken(respone.data.token);
-    //     localStorage.setItem("user", JSON.stringify(respone.data.user));
-    //     localStorage.setItem("token", respone.data.token);
-    //     return true;
-    //   } else {
-    //     throw new Error(respone.message);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   return false;
-    // }
-    const mockUser = {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      role: "admin",
-    };
-    const mockToken = "1234567890";
-
-    // First set the data in localStorage
-    localStorage.setItem("user", JSON.stringify(mockUser));
-    localStorage.setItem("token", mockToken);
-
-    // Then update the state
-    setUser(mockUser);
-    setToken(mockToken);
-
-    return true;
+    const loadingToast = toast.loading("Creating your account...");
+    try {
+      const response = await axiosInstance.post(ENDPOINTS.SIGNUP, {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
+      if (response.data.success) {
+        setUser(response.data.data.user);
+        setToken(response.data.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.data.user));
+        localStorage.setItem("token", response.data.data.token);
+        toast.dismiss(loadingToast);
+        toast.success("Account created successfully!");
+        return true;
+      } else {
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      toast.error(error.message || "Signup failed. Please try again.");
+      return false;
+    }
   };
 
   const logout = async () => {
-    // try {
-    //   const respone = await axiosInstance.post(ENDPOINTS.LOGOUT);
-    //   if (respone.success) {
-    //     setUser(null);
-    //     setToken(null);
-    //     localStorage.removeItem("user");
-    //     localStorage.removeItem("token");
-    //     return true;
-    //   } else {
-    //     throw new Error(respone.message);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   return false;
-    // }
-    // First remove from localStorage
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-
-    // Then update state
-    setUser(null);
-    setToken(null);
-
-    return true;
+    const loadingToast = toast.loading("Logging out...");
+    try {
+      setUser(null);
+      setToken(null);
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      toast.dismiss(loadingToast);
+      toast.success("Successfully logged out!");
+      return true;
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      toast.error("Logout failed. Please try again.");
+      return false;
+    }
   };
 
   const getUser = async () => {
@@ -118,11 +91,11 @@ export default function UserContextProvider({ children }) {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (respone.success) {
-          setUser(respone.data.user);
+        if (respone.data.success) {
+          setUser(respone.data.data.user);
           return true;
         } else {
-          throw new Error(respone.message);
+          throw new Error(respone.data.message);
         }
       } else {
         throw new Error("No token found");
@@ -140,10 +113,10 @@ export default function UserContextProvider({ children }) {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (response.success) {
-          return response.data;
+        if (response.data.success) {
+          return response.data.data;
         } else {
-          throw new Error(response.message);
+          throw new Error(response.data.message);
         }
       } else {
         throw new Error("No token found");
@@ -161,10 +134,10 @@ export default function UserContextProvider({ children }) {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (response.success) {
-          return response.data;
+        if (response.data.success) {
+          return response.data.data;
         } else {
-          throw new Error(response.message);
+          throw new Error(response.data.message);
         }
       } else {
         throw new Error("No token found");

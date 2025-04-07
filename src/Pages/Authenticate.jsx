@@ -4,7 +4,6 @@ import { useUser } from "../Context/User";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar/Navbar";
 import { motion, AnimatePresence } from "framer-motion";
-import toast from "react-hot-toast";
 
 export default function Authenticate() {
   const [isLogin, setIsLogin] = useState(true);
@@ -23,16 +22,18 @@ export default function Authenticate() {
     e.preventDefault();
     try {
       if (isLogin) {
-        await login(formData.email, formData.password);
-        toast.success("Successfully logged in!");
-        navigate("/dashboard");
+        const success = await login(formData.email, formData.password);
+        if (success) {
+          navigate("/dashboard");
+        }
       } else {
-        await signup(formData.name, formData.email, formData.password);
-        toast.success("Account created successfully!");
-        navigate("/dashboard");
+        const success = await signup(formData);
+        if (success) {
+          navigate("/login");
+        }
       }
     } catch (error) {
-      toast.error(error.message || "Authentication failed. Please try again.");
+      console.error(error);
     }
   };
 
