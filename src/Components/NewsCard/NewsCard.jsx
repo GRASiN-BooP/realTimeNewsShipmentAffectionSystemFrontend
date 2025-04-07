@@ -31,9 +31,9 @@ const NewsCard = ({
       </div>
       <div className="flex flex-col">
         <div className="flex gap-2">
-          <h3 className="text-base text-gray-700 sm:text-lg md:text-xl font-semibold">
+          <p className="text-base text-gray-700 sm:text-lg md:text-xl font-semibold inline">
             {title}
-          </h3>
+          </p>
           {incidentType && (
             <div className="mt-1">
               <span className="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">

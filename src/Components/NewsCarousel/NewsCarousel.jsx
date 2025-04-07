@@ -6,6 +6,23 @@ import NewsCard from "../NewsCard/NewsCard";
 import { motion } from "motion/react";
 
 const NewsCarousel = ({ newsItems = [] }) => {
+  // Function to trim text to specified number of words
+  const trimToWords = (text, wordCount) => {
+    if (!text) return "";
+    const words = text.split(/\s+/);
+    if (words.length <= wordCount) return text;
+    return words.slice(0, wordCount).join(" ") + "...";
+  };
+
+  // Process news items to trim titles and descriptions
+  const processNewsItems = (items) => {
+    return items.map((item) => ({
+      ...item,
+      title: trimToWords(item.title, 5),
+      description: trimToWords(item.description, 20),
+    }));
+  };
+
   // Default news items if none provided
   const defaultNewsItems = [
     {
@@ -58,7 +75,9 @@ const NewsCarousel = ({ newsItems = [] }) => {
     },
   ];
 
-  const items = newsItems.length > 0 ? newsItems : defaultNewsItems;
+  const items = processNewsItems(
+    newsItems.length > 0 ? newsItems : defaultNewsItems
+  );
 
   // Slider settings
   const settings = {
@@ -77,7 +96,7 @@ const NewsCarousel = ({ newsItems = [] }) => {
   };
 
   return (
-    <div className="w-full h-full md:h-80 shadow-md rounded-lg overflow-hidden bg-white px-4">
+    <div className="w-full h-full shadow-md rounded-lg overflow-hidden bg-white px-4">
       <Slider {...settings}>
         {items.map((item) => (
           <motion.div
@@ -93,6 +112,7 @@ const NewsCarousel = ({ newsItems = [] }) => {
               description={item.description}
               image={item.image}
               incidentType={item.incidentType}
+              url={item.url}
             />
           </motion.div>
         ))}
