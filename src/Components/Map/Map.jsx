@@ -29,9 +29,9 @@ const Map = ({ mapData }) => {
             scale: 220,
           }}
           style={{
-            backgroundColor: "hsl(210, 60%, 60%)",
+            backgroundColor: "hsl(197, 100%, 85%)",
             backgroundImage:
-              "radial-gradient(circle at center, hsl(210, 50%, 65%) 0%, hsl(210, 65%, 55%) 100%)",
+              "radial-gradient(circle at center, hsl(197, 100%, 90%) 0%, hsl(197, 100%, 80%) 100%)",
             borderRadius: "1rem",
           }}
         >
