@@ -16,7 +16,7 @@ export default function Hero() {
               SUPPY CHAIN AUTOMATION
             </p>
             <p className="text-6xl font-bold font-roboto text-gray-900">
-              Welcome to GoTrack
+              Welcome to GoScan
             </p>
             <p className="text-7xl font-semibold font-roboto text-gocomet">
               AI powered visibility system
