@@ -30,21 +30,19 @@ const NewsCard = ({
         />
       </div>
       <div className="flex flex-col">
-        <div className="flex gap-2">
-          <p className="text-base text-gray-700 sm:text-lg md:text-xl font-semibold inline">
-            {title}
-          </p>
-          {incidentType && (
-            <div className="mt-1">
-              <span className="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                {incidentType}
-              </span>
-            </div>
-          )}
-        </div>
+        <p className="text-base text-gray-700 sm:text-lg md:text-xl font-semibold inline">
+          {title}
+        </p>
         <p className="text-sm sm:text-base text-gray-600 line-clamp-3 sm:line-clamp-4 mt-1">
           {description}
         </p>
+        {incidentType && (
+          <div className="mt-1">
+            <span className="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+              {incidentType}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

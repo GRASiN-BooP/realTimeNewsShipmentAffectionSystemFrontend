@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -6,6 +6,8 @@ import NewsCard from "../NewsCard/NewsCard";
 import { motion } from "motion/react";
 
 const NewsCarousel = ({ newsItems = [] }) => {
+  const sliderRef = useRef(null);
+
   // Function to trim text to specified number of words
   const trimToWords = (text, wordCount) => {
     if (!text) return "";
@@ -95,9 +97,18 @@ const NewsCarousel = ({ newsItems = [] }) => {
     rtl: true, // Enable right-to-left mode for left-to-right sliding
   };
 
+  // Navigation functions
+  const goToPrev = () => {
+    sliderRef.current?.slickPrev();
+  };
+
+  const goToNext = () => {
+    sliderRef.current?.slickNext();
+  };
+
   return (
-    <div className="w-full h-full shadow-md rounded-lg overflow-hidden bg-white px-4">
-      <Slider {...settings}>
+    <div className="w-full h-full shadow-md rounded-lg overflow-hidden bg-white px-4 relative">
+      <Slider ref={sliderRef} {...settings}>
         {items.map((item) => (
           <motion.div
             key={item.id}
@@ -117,6 +128,43 @@ const NewsCarousel = ({ newsItems = [] }) => {
           </motion.div>
         ))}
       </Slider>
+      {/* Navigation Buttons */}
+      <button
+        onClick={goToPrev}
+        className="absolute left-0 top-4/7 transform -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition-colors"
+        aria-label="Previous news"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+      <button
+        onClick={goToNext}
+        className="absolute right-0 top-4/7 transform -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition-colors"
+        aria-label="Next news"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
     </div>
   );
 };
