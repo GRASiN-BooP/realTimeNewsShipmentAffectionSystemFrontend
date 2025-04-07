@@ -64,9 +64,10 @@ export default function parseIncidentsData(apiData) {
       news.push({
         id: newsIdCounter++,
         title: newsItem.title,
-        description: newsItem.summary, // Use 'summary' as description
-        image: newsItem.image || "/placeholder.jpg", // fallback image if not provided
+        description: newsItem.summary,
+        image: newsItem.image || "/placeholder.jpg", // fallback image
         incidentType: incident.type,
+        url: newsItem.url || "#", // fallback URL
       });
     }
   }
