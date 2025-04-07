@@ -9,7 +9,13 @@ import {
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-const Map = ({ mapData, onAreaClick }) => {
+const Map = ({
+  mapData = {
+    danger: { coordinates: [], names: [], radius: [] },
+    caution: { coordinates: [], names: [], radius: [] },
+  },
+  onAreaClick,
+}) => {
   const [tooltip, setTooltip] = useState({
     show: false,
     content: "",
@@ -26,6 +32,12 @@ const Map = ({ mapData, onAreaClick }) => {
     if (onAreaClick) {
       onAreaClick(coordinates, radius, type, name);
     }
+  };
+
+  // Ensure mapData has the required structure
+  const safeMapData = {
+    danger: mapData?.danger || { coordinates: [], names: [], radius: [] },
+    caution: mapData?.caution || { coordinates: [], names: [], radius: [] },
   };
 
   return (
@@ -84,10 +96,10 @@ const Map = ({ mapData, onAreaClick }) => {
               }
             </Geographies>
             {/* Danger Markers */}
-            {mapData.danger.coordinates.map((coord, index) => (
+            {safeMapData.danger.coordinates.map((coord, index) => (
               <Marker key={`danger-${index}`} coordinates={coord}>
                 <circle
-                  r={mapData.danger.radius[index]}
+                  r={safeMapData.danger.radius[index]}
                   fill="#FF0000"
                   fillOpacity={0.3}
                   stroke="#FF0000"
@@ -95,15 +107,15 @@ const Map = ({ mapData, onAreaClick }) => {
                   onClick={() =>
                     handleAreaClick(
                       coord,
-                      mapData.danger.radius[index],
+                      safeMapData.danger.radius[index],
                       "danger",
-                      mapData.danger.names[index]
+                      safeMapData.danger.names[index]
                     )
                   }
                   onMouseEnter={() => {
                     setTooltip({
                       show: true,
-                      content: mapData.danger.names[index],
+                      content: safeMapData.danger.names[index],
                       coordinates: coord,
                     });
                   }}
@@ -118,10 +130,10 @@ const Map = ({ mapData, onAreaClick }) => {
               </Marker>
             ))}
             {/* Caution Markers */}
-            {mapData.caution.coordinates.map((coord, index) => (
+            {safeMapData.caution.coordinates.map((coord, index) => (
               <Marker key={`caution-${index}`} coordinates={coord}>
                 <circle
-                  r={mapData.caution.radius[index]}
+                  r={safeMapData.caution.radius[index]}
                   fill="#FFA500"
                   fillOpacity={0.3}
                   stroke="#FFA500"
@@ -129,15 +141,15 @@ const Map = ({ mapData, onAreaClick }) => {
                   onClick={() =>
                     handleAreaClick(
                       coord,
-                      mapData.caution.radius[index],
+                      safeMapData.caution.radius[index],
                       "caution",
-                      mapData.caution.names[index]
+                      safeMapData.caution.names[index]
                     )
                   }
                   onMouseEnter={() => {
                     setTooltip({
                       show: true,
-                      content: mapData.caution.names[index],
+                      content: safeMapData.caution.names[index],
                       coordinates: coord,
                     });
                   }}
