@@ -14,6 +14,7 @@ export default function () {
   const [incidents, setIncidents] = useState([]);
   const [shipmentsAPI, setShipmentsAPI] = useState([]);
   const [mapDataAPI, setMapDataAPI] = useState({});
+  const [newsItems, setNewsItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // const mapData = {
@@ -107,6 +108,7 @@ export default function () {
         const parsedData = parseIncidentsData(response);
         setMapDataAPI(parsedData.mapData);
         setShipmentsAPI(parsedData.shipments);
+        setNewsItems(parsedData.news);
       } catch (error) {
         console.error("Error loading data:", error);
       } finally {
@@ -117,7 +119,17 @@ export default function () {
   }, []);
 
   return (
-    <div className="w-full flex flex-col h-screen items-center">
+    <div className="w-full flex flex-col h-screen items-center relative">
+      {isLoading && (
+        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600 text-lg font-medium">
+              Loading dashboard data...
+            </p>
+          </div>
+        </div>
+      )}
       <Navbar />
       <motion.div
         initial={{ opacity: 0, y: 25 }}
@@ -125,20 +137,12 @@ export default function () {
         transition={{ duration: 0.5 }}
         className="w-full flex flex-col lg:flex-row justify-center mt-16 items-center px-5 md:px-14 py-10 gap-5"
       >
-        <div className="w-full lg:w-1/2 relative">
-          {isLoading && (
-            <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-2xl">
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                <p className="text-gray-600">Loading map data...</p>
-              </div>
-            </div>
-          )}
+        <div className="w-full lg:w-1/2">
           <MapWithShipments mapData={mapDataAPI} shipments={shipmentsAPI} />
         </div>
         <div className="w-full h-full lg:w-1/2 grid grid-cols-4 grid-row-9 gap-2">
           <div id="newsArea" className="col-span-2 row-span-4">
-            <NewsCarousel />
+            <NewsCarousel newsItems={newsItems} />
           </div>
           <div className="col-span-1 row-span-2">
             <Card title="Shipments In Transit" count={50} state="normal" />
@@ -152,15 +156,7 @@ export default function () {
           <div className="col-span-1 row-span-2">
             <Card title="Shipments Under Danger" count={20} state="danger" />
           </div>
-          <div className="col-span-4 row-span-5 relative">
-            {isLoading && (
-              <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg">
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                  <p className="text-gray-600">Loading shipment data...</p>
-                </div>
-              </div>
-            )}
+          <div className="col-span-4 row-span-5">
             <ShipmentTable shipments={shipmentsAPI} />
           </div>
         </div>
