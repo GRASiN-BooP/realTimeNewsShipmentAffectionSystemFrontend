@@ -65,84 +65,94 @@ export default function ShipmentTable({ shipments = [] }) {
         </select>
       </div>
       {/* Table */}
-      <table className="w-full border-collapse border-2 border-gray-200 rounded-lg overflow-hidden">
-        <thead>
-          <tr className="border-b border-b-gray-300 bg-gray-50 text-left">
-            <th
-              className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base cursor-pointer text-gray-600"
-              onClick={() => handleSort("vessel")}
-            >
-              Vessel{" "}
-              {sortField === "vessel" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
-            </th>
-            <th className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-gray-600">
-              Origin Port
-            </th>
-            <th className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-gray-600">
-              Destination Port
-            </th>
-            <th
-              className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base cursor-pointer text-gray-600"
-              onClick={() => handleSort("impact")}
-            >
-              Impact{" "}
-              {sortField === "impact" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
-            </th>
-            <th
-              className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base cursor-pointer text-gray-600"
-              onClick={() => handleSort("delay")}
-            >
-              Delay
-              {sortField === "delay" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
-            </th>
-          </tr>
-        </thead>
-        <tbody className="text-gray-500">
-          {filteredShipments.map((shipment, index) => (
-            <tr
-              key={index}
-              className="border-b border-b-gray-200 hover:bg-gray-50 cursor-pointer"
-              onClick={() => handleRowClick(shipment)}
-            >
-              <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
-                {shipment.vessel}
-              </td>
-              <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
-                {shipment.originPort}
-              </td>
-              <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
-                {shipment.destinationPort}
-              </td>
-              <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
-                <span
-                  className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm ${
-                    shipment.impact > 6.5
-                      ? "bg-red-500/25 text-red-500"
-                      : shipment.impact > 3.5
-                      ? "bg-yellow-500/25 text-yellow-500"
-                      : "bg-green-500/25 text-green-500"
-                  }`}
-                >
-                  {shipment.impact.toFixed(1)}
-                </span>
-              </td>
-              <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
-                <span
-                  className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm ${
-                    shipment.delay > 3
-                      ? "bg-red-500/25 text-red-500"
-                      : shipment.delay > 1
-                      ? "bg-orange-500/25 text-orange-500"
-                      : "bg-green-500/25 text-green-500"
-                  }`}
-                >
-                  {shipment.delay} Days
-                </span>
-              </td>
+      <div className="border border-gray-200 rounded-lg overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="bg-gray-50 text-left">
+              <th
+                className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base cursor-pointer text-gray-600"
+                onClick={() => handleSort("vessel")}
+              >
+                Vessel{" "}
+                {sortField === "vessel"
+                  ? sortOrder === "asc"
+                    ? "↑"
+                    : "↓"
+                  : ""}
+              </th>
+              <th className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-gray-600">
+                Origin Port
+              </th>
+              <th className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-gray-600">
+                Destination Port
+              </th>
+              <th
+                className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base cursor-pointer text-gray-600"
+                onClick={() => handleSort("impact")}
+              >
+                Impact{" "}
+                {sortField === "impact"
+                  ? sortOrder === "asc"
+                    ? "↑"
+                    : "↓"
+                  : ""}
+              </th>
+              <th
+                className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base cursor-pointer text-gray-600"
+                onClick={() => handleSort("delay")}
+              >
+                Delay
+                {sortField === "delay" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="text-gray-500">
+            {filteredShipments.map((shipment, index) => (
+              <tr
+                key={index}
+                className="hover:bg-gray-50 cursor-pointer"
+                onClick={() => handleRowClick(shipment)}
+              >
+                <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
+                  {shipment.vessel}
+                </td>
+                <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
+                  {shipment.originPort}
+                </td>
+                <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
+                  {shipment.destinationPort}
+                </td>
+                <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
+                  <span
+                    className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm ${
+                      shipment.impact > 6.5
+                        ? "bg-red-500/25 text-red-500"
+                        : shipment.impact > 3.5
+                        ? "bg-yellow-500/25 text-yellow-500"
+                        : "bg-green-500/25 text-green-500"
+                    }`}
+                  >
+                    {shipment.impact.toFixed(1)}
+                  </span>
+                </td>
+                <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
+                  <span
+                    className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm ${
+                      shipment.delay > 3
+                        ? "bg-red-500/25 text-red-500"
+                        : shipment.delay > 1
+                        ? "bg-orange-500/25 text-orange-500"
+                        : "bg-green-500/25 text-green-500"
+                    }`}
+                  >
+                    {shipment.delay} Days
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {selectedShipment && (
