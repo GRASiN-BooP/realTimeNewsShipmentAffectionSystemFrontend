@@ -8,8 +8,8 @@ const ENDPOINTS = {
   SIGNUP: "/auth/signup",
   LOGOUT: "/auth/logout",
   GET_USER: "/auth/user",
-  GET_INCIDENTS: "/dashboard/incidents",
-  GET_SUMMARY_COUNT: "/dashboard/shipment-summary",
+  GET_INCIDENTS: "/presentation/incidents",
+  GET_SUMMARY_COUNT: "/shipment-stats",
 };
 
 const axiosInstance = axios.create({
