@@ -129,42 +129,44 @@ const NewsCarousel = ({ newsItems = [] }) => {
         ))}
       </Slider>
       {/* Navigation Buttons */}
-      <button
-        onClick={goToPrev}
-        className="absolute left-0 top-4/7 transform -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition-colors"
-        aria-label="Previous news"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
+      <div className="flex justify-between items-center gap-5 absolute top-[95%] left-[80%] transform -translate-x-1/2 -translate-y-1/2">
+        <button
+          onClick={goToPrev}
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition-colors"
+          aria-label="Previous news"
         >
-          <path
-            fillRule="evenodd"
-            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
-      <button
-        onClick={goToNext}
-        className="absolute right-0 top-4/7 transform -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition-colors"
-        aria-label="Next news"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+        <button
+          onClick={goToNext}
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition-colors"
+          aria-label="Next news"
         >
-          <path
-            fillRule="evenodd"
-            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };

@@ -28,7 +28,7 @@ export default function Card(props) {
   return (
     <div className="bg-white min-h-16 h-full rounded-lg p-2 flex flex-col items-center justify-center text-center gap-2 shadow-md">
       <div
-        className={`${bgcolor} w-20 h-20 p-2 flex items-center justify-center rounded-lg  ${color} text-5xl font-bold`}
+        className={`${bgcolor} py-3 px-5 flex items-center justify-center rounded-lg  ${color} text-5xl font-bold`}
       >
         {displayCount}
       </div>

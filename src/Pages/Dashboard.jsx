@@ -56,7 +56,7 @@ export default function () {
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full h-screen flex flex-col lg:flex-row justify-center items-center px-5 md:px-14 gap-5"
+        className="w-full mt-20 md:mt-40 flex flex-col lg:flex-row justify-center items-center px-5 md:px-14 gap-5"
       >
         <div className="w-full lg:w-1/2">
           <MapWithShipments mapData={mapDataAPI} shipments={shipmentsAPI} />
