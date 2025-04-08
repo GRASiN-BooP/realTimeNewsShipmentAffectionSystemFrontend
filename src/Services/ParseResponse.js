@@ -24,6 +24,18 @@ export default function parseIncidentsData(apiData) {
   const addedAreas = new Set(); // To avoid duplicate coordinates in mapData
   let newsIdCounter = 1; // To assign unique IDs to news items
 
+  // Common image extensions to check
+  const imageExtensions = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".webp",
+    ".svg",
+    ".bmp",
+    ".tiff",
+  ];
+
   for (const incident of apiData.incidents) {
     const severity = incident.severity;
     const targetGroup = severity === "High" ? mapData.danger : mapData.caution;
@@ -83,11 +95,25 @@ export default function parseIncidentsData(apiData) {
 
     // Parse news
     for (const newsItem of incident.news || []) {
+      // Check if the image URL ends with a common image extension
+      let imageUrl = "/news.jpg"; // Default fallback
+
+      if (newsItem.image) {
+        // Check if the URL ends with any of the common image extensions
+        const hasValidExtension = imageExtensions.some((ext) =>
+          newsItem.image.toLowerCase().endsWith(ext)
+        );
+
+        if (hasValidExtension) {
+          imageUrl = newsItem.image;
+        }
+      }
+
       news.push({
         id: newsIdCounter++,
         title: newsItem.title,
         description: newsItem.summary,
-        image: newsItem.image || "/placeholder.jpg", // fallback image
+        image: imageUrl,
         incidentType: incident.type,
         url: newsItem.url || "#", // fallback URL
       });
