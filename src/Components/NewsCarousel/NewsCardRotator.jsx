@@ -6,7 +6,6 @@ const NewsCardRotator = ({ newsItems = [], interval = 5000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const [showCard, setShowCard] = useState(true);
-
   const defaultNewsItems = [
     {
       id: 1,

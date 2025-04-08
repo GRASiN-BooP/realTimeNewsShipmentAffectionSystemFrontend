@@ -1,12 +1,6 @@
 import React from "react";
 
-const NewsCard = ({
-  title,
-  description,
-  image = "/news.jpeg",
-  incidentType,
-  url,
-}) => {
+const NewsCard = ({ title, description, image, incidentType, url }) => {
   const handleClick = () => {
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
@@ -24,7 +18,7 @@ const NewsCard = ({
     >
       <div className="w-full h-44 flex gap-2">
         <img
-          src={image}
+          src={image || "/news.jpeg"}
           alt={title}
           className="w-full rounded-lg object-cover"
         />

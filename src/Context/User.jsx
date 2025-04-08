@@ -159,7 +159,6 @@ export default function UserContextProvider({ children }) {
           }
         );
         if (response.data.success) {
-          console.log(response.data.data);
           return response.data.data;
         } else {
           throw new Error(response.data.message);
