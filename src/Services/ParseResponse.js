@@ -96,7 +96,7 @@ export default function parseIncidentsData(apiData) {
     // Parse news
     for (const newsItem of incident.news || []) {
       // Check if the image URL ends with a common image extension
-      let imageUrl = "/news.jpg"; // Default fallback
+      let imageUrl = "/news.jpeg"; // Default fallback
 
       if (newsItem.image) {
         // Check if the URL ends with any of the common image extensions
