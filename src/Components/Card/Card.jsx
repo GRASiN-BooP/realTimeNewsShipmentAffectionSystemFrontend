@@ -40,7 +40,7 @@ export default function Card(props) {
       >
         {displayCount}
       </div>
-      <div className="flex flex-col items-end justify-center h-min">
+      <div className="flex flex-col items-end justify-center h-min gap-2">
         {props.mySvg}
         <p className="text-sm font-semibold text-gray-500">{props.title}</p>
       </div>

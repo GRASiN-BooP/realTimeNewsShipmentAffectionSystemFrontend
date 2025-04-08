@@ -15,8 +15,8 @@ const ShipmentStatusPieChart = ({ inTransit = 15, delivered = 25 }) => {
           "rgba(34, 197, 94, 0.9)", // bright green
         ],
         borderColor: [
-          "rgba(0, 0, 0, 0.4)", // make it black
-          "rgba(0, 0, 0, 0.4)", // make it black
+          "rgba(59, 130, 246, 1)", // solid blue
+          "rgba(34, 197, 94, 1)", // solid green
         ],
         borderWidth: 2,
         offset: 8,
