@@ -97,7 +97,7 @@ export default function NewDashboard() {
         </div>
         <div
           id="charts"
-          className="sm:col-span-1 sm:row-span-3 col-span-2 row-span-2 bg-white shadow-sm"
+          className="sm:col-span-1 sm:row-span-3 col-span-2 row-span-2"
         >
           <ShipmentStatusPieChart />
         </div>
