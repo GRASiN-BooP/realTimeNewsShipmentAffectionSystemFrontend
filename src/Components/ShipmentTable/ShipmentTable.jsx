@@ -49,7 +49,7 @@ export default function ShipmentTable({ shipments = [] }) {
   }, [shipments, incidentFilter, sortField, sortOrder]);
 
   return (
-    <div className="flex-1 bg-white rounded-lg shadow-md p-4 h-full w-full">
+    <div className="flex-1 bg-white rounded-lg shadow-md px-4 py-5  w-full">
       {/* Incident Filter Dropdown */}
       <div className="mb-4 flex justify-between">
         <select

@@ -15,7 +15,7 @@ export default function Navbar() {
     }
   };
   return (
-    <nav className="w-full flex justify-between items-center py-4 px-16 h-16 fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+    <nav className="w-full flex justify-between items-center py-4 px-16 h-16 bg-white shadow-sm sticky top-0 z-50">
       <Link to="/">
         <img src="/GoCometLogoWithTitle.png" alt="Brandname" className="w-36" />
       </Link>
