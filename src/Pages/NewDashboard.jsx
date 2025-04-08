@@ -5,14 +5,18 @@ import Card from "../Components/Card/Card";
 import NewsCarousel from "../Components/NewsCarousel/NewsCarousel";
 import ShipmentTable from "../Components/ShipmentTable/ShipmentTable";
 import ShipmentStatusPieChart from "../Components/Charts/ShipmentStatusPieChart";
-import { motion } from "motion/react";
 import { useUser } from "../Context/User";
 import parseIncidentsData from "../Services/ParseResponse";
 import NewsCardRotator from "../Components/NewsCarousel/NewsCardRotator";
 
 export default function NewDashboard() {
   const { getSummaryCount, getIncidents } = useUser();
-  const [summaryCount, setSummaryCount] = useState({});
+  const [summaryCount, setSummaryCount] = useState({
+    shipmentInTransit: 0,
+    shipmentNotAffected: 0,
+    shipmentUnderCaution: 0,
+    shipmentUnderDanger: 0,
+  });
   const [shipmentsAPI, setShipmentsAPI] = useState([]);
   const [mapDataAPI, setMapDataAPI] = useState({});
   const [newsItems, setNewsItems] = useState([]);
