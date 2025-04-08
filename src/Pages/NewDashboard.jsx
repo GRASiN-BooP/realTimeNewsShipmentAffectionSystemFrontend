@@ -81,7 +81,7 @@ export default function NewDashboard() {
           <Card
             count={summaryCount.shipmentNotAffected}
             title="Shipments Not Affected"
-            state="normal"
+            state="secure"
             mySvg={<Secure />}
           />
           <Card

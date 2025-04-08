@@ -2,18 +2,26 @@ import React, { useState, useEffect, Component } from "react";
 import { useSpring } from "motion/react";
 
 export default function Card(props) {
+  const state = props.state?.toLowerCase();
+
   const bgcolor =
-    props.state === "danger"
+    state === "danger"
       ? "bg-red-500/15"
-      : props.state === "caution"
+      : state === "caution"
       ? "bg-yellow-500/15"
+      : state === "secure"
+      ? "bg-green-500/15"
       : "bg-blue-500/15";
+
   const color =
-    props.state === "danger"
+    state === "danger"
       ? "text-red-500"
-      : props.state === "caution"
+      : state === "caution"
       ? "text-yellow-500"
+      : state === "secure"
+      ? "text-green-500"
       : "text-blue-500";
+
   const [displayCount, setDisplayCount] = useState(0);
   const springCount = useSpring(0, {
     bounce: 0,
