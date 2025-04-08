@@ -3,7 +3,7 @@ import React from "react";
 const NewsCard = ({
   title,
   description,
-  image = "/trump.jpeg",
+  image = "/news.jpeg",
   incidentType,
   url,
 }) => {

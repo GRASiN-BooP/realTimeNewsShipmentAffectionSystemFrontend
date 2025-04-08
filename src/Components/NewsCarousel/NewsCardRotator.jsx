@@ -13,7 +13,7 @@ const NewsCardRotator = ({ newsItems = [], interval = 5000 }) => {
       title: "Severe Weather Alert: Typhoon Approaching East Asia",
       description:
         "A powerful typhoon is expected to hit the East Asian shipping routes, affecting vessels in the Shanghai and Tokyo regions. Multiple carriers have announced delays.",
-      image: "/trump.jpeg",
+      image: "/news.jpeg",
       incidentType: "Typhoon in East Asia",
     },
     {
@@ -21,7 +21,7 @@ const NewsCardRotator = ({ newsItems = [], interval = 5000 }) => {
       title: "Port Congestion Crisis in Singapore",
       description:
         "Singapore's port is experiencing severe congestion with waiting times exceeding 7 days. This is causing significant delays for vessels in the region.",
-      image: "/trump.jpeg",
+      image: "/news.jpeg",
       incidentType: "Port Congestion in Singapore",
     },
     // ... add more if needed
@@ -38,7 +38,7 @@ const NewsCardRotator = ({ newsItems = [], interval = 5000 }) => {
     return items.map((item) => ({
       ...item,
       title: trimToWords(item.title, 5),
-      description: trimToWords(item.description, isDefault ? 10 : 15),
+      description: trimToWords(item.description, isDefault ? 10 : 10),
     }));
   };
 

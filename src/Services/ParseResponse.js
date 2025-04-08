@@ -30,6 +30,17 @@ export default function parseIncidentsData(apiData) {
 
     // Parse affected areas
     for (const area of incident.affected_area) {
+      // Skip if coordinates are missing or empty
+      if (
+        !area.coordinates ||
+        !area.coordinates.latitude ||
+        !area.coordinates.longitude ||
+        area.coordinates.latitude === 0 ||
+        area.coordinates.longitude === 0
+      ) {
+        continue;
+      }
+
       const key = `${area.coordinates.latitude},${area.coordinates.longitude}`;
 
       if (!addedAreas.has(key)) {
@@ -45,6 +56,17 @@ export default function parseIncidentsData(apiData) {
 
     // Parse shipments
     for (const shipment of incident.affected_shipments) {
+      // Skip if coordinates are missing or empty
+      if (
+        !shipment.current_coordinates ||
+        !shipment.current_coordinates.latitude ||
+        !shipment.current_coordinates.longitude ||
+        shipment.current_coordinates.latitude === 0 ||
+        shipment.current_coordinates.longitude === 0
+      ) {
+        continue;
+      }
+
       shipments.push({
         vessel: shipment.vessel_name,
         originPort: shipment.origin_port,
