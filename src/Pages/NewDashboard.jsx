@@ -13,7 +13,8 @@ import Secure from "../svgs/Secure";
 import Danger from "../svgs/Danger";
 import Caution from "../svgs/Caution";
 export default function NewDashboard() {
-  const { getSummaryCount, getIncidents } = useUser();
+  const { getSummaryCount, getIncidents, getShipmentStatusChartData } =
+    useUser();
   const [summaryCount, setSummaryCount] = useState({
     shipmentInTransit: 0,
     shipmentNotAffected: 0,
@@ -24,15 +25,21 @@ export default function NewDashboard() {
   const [mapDataAPI, setMapDataAPI] = useState({});
   const [newsItems, setNewsItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [shipmentStatusChartData, setShipmentStatusChartData] = useState({});
 
   useEffect(() => {
     const getAllSummaryCount = async () => {
       const response = await getSummaryCount();
       setSummaryCount(response);
     };
+    const getAllShipmentStatusChartData = async () => {
+      const response = await getShipmentStatusChartData();
+      setShipmentStatusChartData(response);
+    };
     const getAllIncidents = async () => {
       try {
         getAllSummaryCount();
+        getAllShipmentStatusChartData();
         const response = await getIncidents();
         const parsedData = parseIncidentsData(response);
         setMapDataAPI(parsedData.mapData);
@@ -106,7 +113,10 @@ export default function NewDashboard() {
           id="charts"
           className="sm:col-span-1 sm:row-span-3 col-span-2 row-span-2"
         >
-          <ShipmentStatusPieChart />
+          <ShipmentStatusPieChart
+            inTransit={shipmentStatusChartData.shipmentInTransit}
+            delivered={shipmentStatusChartData.shipmentDelivered}
+          />
         </div>
         <div
           id="table"

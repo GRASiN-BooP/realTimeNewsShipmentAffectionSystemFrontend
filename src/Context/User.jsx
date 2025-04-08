@@ -147,7 +147,31 @@ export default function UserContextProvider({ children }) {
       return false;
     }
   };
-
+  const getShipmentStatusChartData = async () => {
+    try {
+      if (token) {
+        const response = await axiosInstance.get(
+          ENDPOINTS.GET_SHIPMENT_STATUS_CHART_DATA,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.data.success) {
+          console.log(response.data.data);
+          return response.data.data;
+        } else {
+          throw new Error(response.data.message);
+        }
+      } else {
+        throw new Error("No token found");
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
   return (
     <userContext.Provider
       value={{
@@ -158,6 +182,7 @@ export default function UserContextProvider({ children }) {
         getUser,
         getSummaryCount,
         getIncidents,
+        getShipmentStatusChartData,
       }}
     >
       {children}

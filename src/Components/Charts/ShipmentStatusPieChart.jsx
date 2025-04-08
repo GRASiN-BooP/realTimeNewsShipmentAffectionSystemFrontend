@@ -15,8 +15,8 @@ const ShipmentStatusPieChart = ({ inTransit = 15, delivered = 25 }) => {
           "rgba(34, 197, 94, 0.9)", // bright green
         ],
         borderColor: [
-          "rgba(59, 130, 246, 1)", // solid blue
-          "rgba(34, 197, 94, 1)", // solid green
+          "rgba(0, 0, 0, 0.4)", // make it black
+          "rgba(0, 0, 0, 0.4)", // make it black
         ],
         borderWidth: 2,
         offset: 8,
@@ -68,7 +68,10 @@ const ShipmentStatusPieChart = ({ inTransit = 15, delivered = 25 }) => {
   };
 
   return (
-    <div className="w-full h-full bg-white shadow-sm rounded-lg p-4 flex justify-center items-center">
+    <div className="w-full h-full bg-white shadow-sm rounded-lg p-4 flex flex-col justify-center items-center">
+      <p className="text-lg font-semibold text-gray-800 mb-2">
+        Shipment Status
+      </p>
       <div className="h-64">
         <Pie data={data} options={options} />
       </div>
