@@ -66,7 +66,7 @@ export default function Authenticate() {
   };
 
   return (
-    <div className="overflow-hidden w-full h-screen flex flex-col items-center justify-center bg-[url('/bg.png')] bg-[length:70%] bg-center bg-no-repeat">
+    <div className="overflow-hidden w-full h-screen flex flex-col items-center justify-center bg-[url('/bg.png')] bg-cover lg:bg-[length:90%] xl:bg-[length:70%] bg-center bg-no-repeat">
       <Navbar />
       <AnimatePresence mode="wait">
         <motion.div
@@ -75,9 +75,9 @@ export default function Authenticate() {
           initial="initial"
           animate="animate"
           exit="exit"
-          className="w-full flex flex-col items-center justify-center"
+          className="w-full h-full flex flex-col items-center justify-center"
         >
-          <div className="w-3/4 lg:w-2/7 h-full flex flex-col bg-white rounded-lg shadow-lg items-center justify-center p-10">
+          <div className="w-3/4 lg:w-2/7 flex flex-col bg-white rounded-lg shadow-lg items-center justify-center p-10">
             <h1 className="text-2xl font-bold">
               {isLogin ? "Login" : "Sign Up"}
             </h1>

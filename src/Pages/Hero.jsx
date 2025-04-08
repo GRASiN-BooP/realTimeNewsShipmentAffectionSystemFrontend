@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <div className="w-full flex flex-col h-screen items-center">
       <Navbar />
-      <div className="w-full h-full flex flex-col md:flex-row justify-center items-center mt-16 px-5 md:px-14 py-10 gap-5">
+      <div className="grid grid-cols-2 w-full h-full content-center">
         <div id="info" className="flex-1 flex flex-col items-center">
           <div className="flex flex-col items-start justify-start max-w-2xl gap-2">
             <p className="text-xl font-bold font-roboto text-gray-400">
