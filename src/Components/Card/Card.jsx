@@ -26,7 +26,7 @@ export default function Card(props) {
     springCount.set(props.count);
   }, [props.count]);
   return (
-    <div className="bg-white rounded-lg p-2 flex flex-row w-full items-center justify-between text-center gap-2 shadow-md">
+    <div className="bg-white rounded-lg p-2 flex flex-row w-full items-center justify-around text-center gap-2 shadow-md">
       <div
         className={`${bgcolor} w-16 h-16 flex items-center justify-center rounded-lg  ${color} text-5xl font-bold`}
       >

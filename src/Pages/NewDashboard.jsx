@@ -11,7 +11,7 @@ import NewsCardRotator from "../Components/NewsCarousel/NewsCardRotator";
 
 export default function NewDashboard() {
   const { getSummaryCount, getIncidents } = useUser();
-  const [summaryCount, setSummaryCount] = useState(0);
+  const [summaryCount, setSummaryCount] = useState({});
   const [shipmentsAPI, setShipmentsAPI] = useState([]);
   const [mapDataAPI, setMapDataAPI] = useState({});
   const [newsItems, setNewsItems] = useState([]);
@@ -57,10 +57,26 @@ export default function NewDashboard() {
           id="insightCards"
           className="row-span-1 sm:col-span-4 col-span-2 gap-5 grid grid-cols-2 sm:grid-cols-4"
         >
-          <Card count={10} title="Total Users" state="caution" />
-          <Card count={10} title="Total Users" state="caution" />
-          <Card count={10} title="Total Users" state="caution" />
-          <Card count={10} title="Total Users" state="caution" />
+          <Card
+            count={summaryCount.shipmentInTransit}
+            title="Shipments In Transit"
+            state="normal"
+          />
+          <Card
+            count={summaryCount.shipmentNotAffected}
+            title="Shipments Not Affected"
+            state="normal"
+          />
+          <Card
+            count={summaryCount.shipmentUnderCaution}
+            title="Shipments Under Caution"
+            state="caution"
+          />
+          <Card
+            count={summaryCount.shipmentUnderDanger}
+            title="Shipments Under Danger"
+            state="danger"
+          />
         </div>
         <div
           id="map"
