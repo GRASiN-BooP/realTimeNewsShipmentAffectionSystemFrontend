@@ -8,7 +8,10 @@ import ShipmentStatusPieChart from "../Components/Charts/ShipmentStatusPieChart"
 import { useUser } from "../Context/User";
 import parseIncidentsData from "../Services/ParseResponse";
 import NewsCardRotator from "../Components/NewsCarousel/NewsCardRotator";
-
+import Ship from "../svgs/Ship";
+import Secure from "../svgs/Secure";
+import Danger from "../svgs/Danger";
+import Caution from "../svgs/Caution";
 export default function NewDashboard() {
   const { getSummaryCount, getIncidents } = useUser();
   const [summaryCount, setSummaryCount] = useState({
@@ -66,21 +69,25 @@ export default function NewDashboard() {
             count={summaryCount.shipmentInTransit}
             title="Shipments In Transit"
             state="normal"
+            mySvg={<Ship />}
           />
           <Card
             count={summaryCount.shipmentNotAffected}
             title="Shipments Not Affected"
             state="normal"
+            mySvg={<Secure />}
           />
           <Card
             count={summaryCount.shipmentUnderCaution}
             title="Shipments Under Caution"
             state="caution"
+            mySvg={<Caution />}
           />
           <Card
             count={summaryCount.shipmentUnderDanger}
             title="Shipments Under Danger"
             state="danger"
+            mySvg={<Danger />}
           />
         </div>
         <div

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { useSpring } from "motion/react";
 
 export default function Card(props) {
@@ -32,7 +32,10 @@ export default function Card(props) {
       >
         {displayCount}
       </div>
-      <p className="text-md font-semibold text-gray-500">{props.title}</p>
+      <div className="flex flex-col items-end justify-center h-min">
+        {props.mySvg}
+        <p className="text-sm font-semibold text-gray-500">{props.title}</p>
+      </div>
     </div>
   );
 }
