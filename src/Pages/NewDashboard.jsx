@@ -4,6 +4,7 @@ import MapWithShipments from "../Components/Map/MapWithShipments";
 import Card from "../Components/Card/Card";
 import NewsCarousel from "../Components/NewsCarousel/NewsCarousel";
 import ShipmentTable from "../Components/ShipmentTable/ShipmentTable";
+import ShipmentStatusPieChart from "../Components/Charts/ShipmentStatusPieChart";
 import { motion } from "motion/react";
 import { useUser } from "../Context/User";
 import parseIncidentsData from "../Services/ParseResponse";
@@ -94,7 +95,7 @@ export default function NewDashboard() {
           id="charts"
           className="sm:col-span-1 sm:row-span-3 col-span-2 row-span-2 bg-white shadow-sm"
         >
-          Chartss
+          <ShipmentStatusPieChart />
         </div>
         <div
           id="table"
