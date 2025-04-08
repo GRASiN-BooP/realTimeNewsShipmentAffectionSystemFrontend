@@ -6,6 +6,7 @@ import Hero from "./Pages/Hero";
 import Authenticate from "./Pages/Authenticate";
 import UserContextProvider from "./Context/User";
 import NewDashboard from "./Pages/NewDashboard";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   return (
@@ -40,7 +41,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Hero />} />
             <Route path="/authenticate" element={<Authenticate />} />
-            <Route path="/dashboard" element={<NewDashboard />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <NewDashboard />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </UserContextProvider>
       </Router>
