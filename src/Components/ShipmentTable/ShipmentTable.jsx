@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Modal from "../Modal/Modal";
+import { useUser } from "../../Context/User";
 
 export default function ShipmentTable({ shipments = [] }) {
   const [incidentFilter, setIncidentFilter] = useState("All Shipments");
@@ -7,6 +8,43 @@ export default function ShipmentTable({ shipments = [] }) {
   const [sortOrder, setSortOrder] = useState("asc"); // Default to ascending
   const [selectedShipment, setSelectedShipment] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [placeNames, setPlaceNames] = useState({});
+  const { getPlaceName } = useUser();
+
+  // Fetch place names for all shipments when component loads
+  useEffect(() => {
+    const fetchPlaceNames = async () => {
+      const newPlaceNames = {};
+
+      for (const shipment of shipments) {
+        if (
+          shipment.coordinates &&
+          shipment.coordinates.latitude &&
+          shipment.coordinates.longitude
+        ) {
+          const key = `${shipment.coordinates.latitude},${shipment.coordinates.longitude}`;
+
+          // Only fetch if we don't already have this place name
+          if (!newPlaceNames[key]) {
+            try {
+              const placeName = await getPlaceName(
+                shipment.coordinates.latitude,
+                shipment.coordinates.longitude
+              );
+              newPlaceNames[key] = placeName || "Unknown";
+            } catch (error) {
+              console.error("Error fetching place name:", error);
+              newPlaceNames[key] = "Unknown";
+            }
+          }
+        }
+      }
+
+      setPlaceNames(newPlaceNames);
+    };
+
+    fetchPlaceNames();
+  }, [shipments, getPlaceName]);
 
   // Unique incidents for filtering
   const uniqueIncidents = [
@@ -22,7 +60,18 @@ export default function ShipmentTable({ shipments = [] }) {
 
   // Handle row click
   const handleRowClick = (shipment) => {
-    setSelectedShipment(shipment);
+    // Add place name to the shipment data before opening modal
+    const shipmentWithPlaceName = { ...shipment };
+    if (
+      shipment.coordinates &&
+      shipment.coordinates.latitude &&
+      shipment.coordinates.longitude
+    ) {
+      const key = `${shipment.coordinates.latitude},${shipment.coordinates.longitude}`;
+      shipmentWithPlaceName.placeName = placeNames[key] || "Unknown";
+    }
+
+    setSelectedShipment(shipmentWithPlaceName);
     setIsModalOpen(true);
   };
 

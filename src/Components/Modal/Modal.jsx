@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function Modal({ isOpen, onClose, title, data }) {
+// Define the component as a named function
+function ModalComponent({ isOpen, onClose, title, data }) {
   if (!isOpen) return null;
 
   return (
@@ -78,6 +79,10 @@ export default function Modal({ isOpen, onClose, title, data }) {
                     <span className="font-medium">Long:</span>{" "}
                     {data.coordinates.longitude.toFixed(4)}
                   </div>
+                  <div className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                    <span className="font-medium">Location:</span>{" "}
+                    {data.placeName || "Unknown"}
+                  </div>
                 </div>
               </div>
               {/* Incident Type */}
@@ -145,3 +150,6 @@ export default function Modal({ isOpen, onClose, title, data }) {
     </div>
   );
 }
+
+// Export the component with a different name
+export default ModalComponent;

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { ENDPOINTS, axiosInstance } from "../Services/API";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const userContext = createContext();
 
@@ -39,7 +40,6 @@ export default function UserContextProvider({ children }) {
       return false;
     }
   };
-
   const signup = async (formData) => {
     const loadingToast = toast.loading("Creating your account...");
     try {
@@ -65,7 +65,6 @@ export default function UserContextProvider({ children }) {
       return false;
     }
   };
-
   const logout = async () => {
     const loadingToast = toast.loading("Logging out...");
     try {
@@ -82,7 +81,6 @@ export default function UserContextProvider({ children }) {
       return false;
     }
   };
-
   const getUser = async () => {
     try {
       if (token) {
@@ -171,6 +169,26 @@ export default function UserContextProvider({ children }) {
       return false;
     }
   };
+  const getPlaceName = async (lat, lng) => {
+    const apiKey = import.meta.env.VITE_OPEN_CAGE_API_KEY;
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
+    try {
+      const response = await axios.get(url);
+      const result = response.data?.results?.[0];
+
+      if (result) {
+        return result.formatted;
+      } else {
+        toast.error("Location not found");
+        return false;
+      }
+    } catch (error) {
+      console.error("Error fetching location:", error.message);
+      toast.error("Error fetching location");
+      return false;
+    }
+  };
+
   return (
     <userContext.Provider
       value={{
@@ -182,6 +200,7 @@ export default function UserContextProvider({ children }) {
         getSummaryCount,
         getIncidents,
         getShipmentStatusChartData,
+        getPlaceName,
       }}
     >
       {children}
