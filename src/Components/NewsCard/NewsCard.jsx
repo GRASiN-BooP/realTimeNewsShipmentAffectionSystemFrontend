@@ -1,12 +1,19 @@
 import React from "react";
 
-const NewsCard = ({ title, description, image, incidentType, url }) => {
+const NewsCard = ({
+  title,
+  description,
+  image,
+  incidentType,
+  url,
+  affectedAreaNames,
+  shipmentIncidentTypes,
+}) => {
   const handleClick = () => {
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
     }
   };
-
   return (
     <div
       className={`w-full bg-white py-3 gap-2 flex flex-col items-start justify-start ${
@@ -31,10 +38,24 @@ const NewsCard = ({ title, description, image, incidentType, url }) => {
           {description}
         </p>
         {incidentType && (
-          <div className="mt-1">
-            <span className="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+          <div className="mt-1 gap-2 flex flex-row flex-wrap">
+            {/* <span className="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
               {incidentType}
-            </span>
+            </span> */}
+            {affectedAreaNames && affectedAreaNames.length > 0 && (
+              <span className="inline-block px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                {Array.isArray(affectedAreaNames)
+                  ? affectedAreaNames.join(", ")
+                  : affectedAreaNames}
+              </span>
+            )}
+            {shipmentIncidentTypes && shipmentIncidentTypes.length > 0 && (
+              <span className="inline-block px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
+                {Array.isArray(shipmentIncidentTypes)
+                  ? shipmentIncidentTypes.join(", ")
+                  : shipmentIncidentTypes}
+              </span>
+            )}
           </div>
         )}
       </div>

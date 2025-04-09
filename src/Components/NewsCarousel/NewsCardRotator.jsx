@@ -93,6 +93,8 @@ const NewsCardRotator = ({ newsItems = [], interval = 5000 }) => {
               image={currentItem.image}
               incidentType={currentItem.incidentType}
               url={currentItem.url}
+              affectedAreaNames={currentItem.affectedAreaNames}
+              shipmentIncidentTypes={currentItem.shipmentIncidentTypes}
             />
           </motion.div>
         )}

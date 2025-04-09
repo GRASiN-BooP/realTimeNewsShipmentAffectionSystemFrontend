@@ -44,6 +44,12 @@ export default function parseIncidentsData(apiData) {
     const severity = incident.severity;
     const targetGroup = severity === "High" ? mapData.danger : mapData.caution;
 
+    // Extract affected area names for this incident
+    const affectedAreaNames = incident.affected_area.map((area) => area.name);
+
+    // Extract incident types from shipments for this incident
+    const shipmentIncidentTypes = new Set();
+
     // Parse affected areas
     for (const area of incident.affected_area) {
       // Skip if coordinates are missing or empty
@@ -84,8 +90,10 @@ export default function parseIncidentsData(apiData) {
         continue;
       }
 
-      // Add all affected area names to the shipment
-      const affectedAreaNames = incident.affected_area.map((area) => area.name);
+      // Add the incident type to our set
+      if (shipment.incident) {
+        shipmentIncidentTypes.add(shipment.incident.trim());
+      }
 
       shipments.push({
         vessel: shipment.vessel_name,
@@ -94,10 +102,10 @@ export default function parseIncidentsData(apiData) {
         impact: shipment.impact_score,
         delay: parseInt(shipment.total_delay), // e.g., "30 days" → 30
         incidentType: shipment.incident.trim(),
-        coordinates: [
-          shipment.current_coordinates.longitude,
-          shipment.current_coordinates.latitude,
-        ],
+        coordinates: {
+          latitude: shipment.current_coordinates.latitude,
+          longitude: shipment.current_coordinates.longitude,
+        },
         incidentId: incidentId,
         affectedAreaNames: affectedAreaNames,
       });
@@ -127,6 +135,8 @@ export default function parseIncidentsData(apiData) {
         incidentType: incident.type,
         url: newsItem.url || "#", // fallback URL
         incidentId: incidentId,
+        affectedAreaNames: affectedAreaNames,
+        shipmentIncidentTypes: Array.from(shipmentIncidentTypes), // Add shipment incident types
       });
     }
   }
