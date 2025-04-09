@@ -7,7 +7,7 @@ import Authenticate from "./Pages/Authenticate";
 import UserContextProvider from "./Context/User";
 import NewDashboard from "./Pages/NewDashboard";
 import ProtectedRoute from "./Components/ProtectedRoute";
-
+import NoCodeDashboard from "./Pages/NoCodeDashboard";
 function App() {
   return (
     <div>
@@ -49,6 +49,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/noCodeDashboard" element={<NoCodeDashboard />} />
           </Routes>
         </UserContextProvider>
       </Router>

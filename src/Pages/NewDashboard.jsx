@@ -86,13 +86,13 @@ export default function NewDashboard() {
           />
           <Card
             count={summaryCount.shipmentUnderCaution}
-            title="Shipments Under Caution"
+            title="Shipments Slightly Affected"
             state="caution"
             mySvg={<Caution />}
           />
           <Card
             count={summaryCount.shipmentUnderDanger}
-            title="Shipments Under Danger"
+            title="Shipments Severely Affected"
             state="danger"
             mySvg={<Danger />}
           />
