@@ -18,9 +18,9 @@ export default function parseIncidentsData(apiData) {
   const news = [];
 
   const severityToRadius = {
-    High: 15,
-    Medium: 10,
-    Low: 5,
+    High: 10,
+    Medium: 7,
+    Low: 2,
   };
 
   const addedAreas = new Set(); // To avoid duplicate coordinates in mapData
