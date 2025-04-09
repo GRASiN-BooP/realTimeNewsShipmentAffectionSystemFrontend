@@ -4,11 +4,13 @@ export default function parseIncidentsData(apiData) {
       coordinates: [],
       names: [],
       radius: [],
+      incidentIds: [],
     },
     caution: {
       coordinates: [],
       names: [],
       radius: [],
+      incidentIds: [],
     },
   };
 
@@ -37,6 +39,8 @@ export default function parseIncidentsData(apiData) {
   ];
 
   for (const incident of apiData.incidents) {
+    const incidentId =
+      incident.id || `incident-${Math.random().toString(36).substr(2, 9)}`;
     const severity = incident.severity;
     const targetGroup = severity === "High" ? mapData.danger : mapData.caution;
 
@@ -62,6 +66,7 @@ export default function parseIncidentsData(apiData) {
         ]);
         targetGroup.names.push(area.name);
         targetGroup.radius.push(severityToRadius[severity] || 5);
+        targetGroup.incidentIds.push(incidentId);
         addedAreas.add(key);
       }
     }
@@ -79,6 +84,9 @@ export default function parseIncidentsData(apiData) {
         continue;
       }
 
+      // Add all affected area names to the shipment
+      const affectedAreaNames = incident.affected_area.map((area) => area.name);
+
       shipments.push({
         vessel: shipment.vessel_name,
         originPort: shipment.origin_port,
@@ -90,6 +98,8 @@ export default function parseIncidentsData(apiData) {
           shipment.current_coordinates.longitude,
           shipment.current_coordinates.latitude,
         ],
+        incidentId: incidentId,
+        affectedAreaNames: affectedAreaNames,
       });
     }
 
@@ -116,6 +126,7 @@ export default function parseIncidentsData(apiData) {
         image: imageUrl,
         incidentType: incident.type,
         url: newsItem.url || "#", // fallback URL
+        incidentId: incidentId,
       });
     }
   }

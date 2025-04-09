@@ -4,52 +4,45 @@ import Map from "./Map";
 const MapWithShipments = ({ mapData, shipments }) => {
   const [selectedArea, setSelectedArea] = useState(null);
 
-  // Function to find affected shipments in a radius
-  const getAffectedShipments = (coordinates, radius) => {
-    console.log("Finding affected shipments:", {
-      coordinates,
-      radius,
-      shipments,
-    });
+  // Function to find affected shipments by area name
+  const getAffectedShipments = (areaName) => {
+    // console.log("Finding affected shipments for area:", areaName);
+    // console.log("All shipments:", shipments);
 
     if (!shipments || !Array.isArray(shipments)) {
-      console.error("Invalid shipments data:", shipments);
+      // console.error("Invalid shipments data:", shipments);
       return [];
     }
 
-    return shipments.filter((shipment) => {
-      if (!shipment.coordinates) {
-        console.warn("Shipment missing coordinates:", shipment);
-        return false;
-      }
-
-      // Simple distance calculation
-      const distance = Math.sqrt(
-        Math.pow(shipment.coordinates[0] - coordinates[0], 2) +
-          Math.pow(shipment.coordinates[1] - coordinates[1], 2)
-      );
-
-      const isAffected = distance <= radius;
-      console.log("Shipment distance check:", {
-        shipment: shipment.vessel || "unknown",
-        distance,
-        radius,
-        isAffected,
-      });
-
-      return isAffected;
+    // Filter shipments that have this area name in their affectedAreaNames array
+    const filteredShipments = shipments.filter((shipment) => {
+      const isIncluded =
+        shipment.affectedAreaNames &&
+        shipment.affectedAreaNames.includes(areaName);
+      // console.log(
+      //   `Shipment ${shipment.vessel} with areas ${JSON.stringify(
+      //     shipment.affectedAreaNames
+      //   )} included: ${isIncluded}`
+      // );
+      return isIncluded;
     });
+
+    // console.log("Filtered shipments:", filteredShipments);
+    return filteredShipments;
   };
 
-  const handleAreaClick = (coordinates, radius, type, name) => {
-    console.log("Area clicked in MapWithShipments:", {
-      coordinates,
-      radius,
-      type,
-      name,
-    });
-    const affectedShipments = getAffectedShipments(coordinates, radius);
-    console.log("Affected shipments:", affectedShipments);
+  const handleAreaClick = (coordinates, radius, type, name, index) => {
+    // console.log("Area clicked in MapWithShipments:", {
+    //   coordinates,
+    //   radius,
+    //   type,
+    //   name,
+    //   index,
+    // });
+
+    // Get all affected shipments for this area name
+    const affectedShipments = getAffectedShipments(name);
+    // console.log("Affected shipments:", affectedShipments);
 
     setSelectedArea({
       coordinates,
@@ -62,8 +55,12 @@ const MapWithShipments = ({ mapData, shipments }) => {
 
   return (
     <div className="relative">
-      <Map mapData={mapData} onAreaClick={handleAreaClick} />
-
+      <Map
+        mapData={mapData}
+        onAreaClick={(coordinates, radius, type, name, index) =>
+          handleAreaClick(coordinates, radius, type, name, index)
+        }
+      />
       {/* Simple Modal Implementation */}
       {selectedArea && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center">

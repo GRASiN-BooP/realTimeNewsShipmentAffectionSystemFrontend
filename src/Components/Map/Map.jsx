@@ -11,8 +11,8 @@ const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 const Map = ({
   mapData = {
-    danger: { coordinates: [], names: [], radius: [] },
-    caution: { coordinates: [], names: [], radius: [] },
+    danger: { coordinates: [], names: [], radius: [], incidentIds: [] },
+    caution: { coordinates: [], names: [], radius: [], incidentIds: [] },
   },
   onAreaClick,
 }) => {
@@ -27,17 +27,33 @@ const Map = ({
     { name: "Danger", color: "#FF0000" },
   ];
 
-  const handleAreaClick = (coordinates, radius, type, name) => {
-    console.log("Map area clicked:", { coordinates, radius, type, name });
+  const handleAreaClick = (coordinates, radius, type, name, index) => {
+    // console.log("Map area clicked:", {
+    //   coordinates,
+    //   radius,
+    //   type,
+    //   name,
+    //   index,
+    // });
     if (onAreaClick) {
-      onAreaClick(coordinates, radius, type, name);
+      onAreaClick(coordinates, radius, type, name, index);
     }
   };
 
   // Ensure mapData has the required structure
   const safeMapData = {
-    danger: mapData?.danger || { coordinates: [], names: [], radius: [] },
-    caution: mapData?.caution || { coordinates: [], names: [], radius: [] },
+    danger: mapData?.danger || {
+      coordinates: [],
+      names: [],
+      radius: [],
+      incidentIds: [],
+    },
+    caution: mapData?.caution || {
+      coordinates: [],
+      names: [],
+      radius: [],
+      incidentIds: [],
+    },
   };
 
   return (
@@ -59,10 +75,10 @@ const Map = ({
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
-                  // Generate various shades of white
-                  const hue = 0; // Neutral hue
-                  const saturation = 0; // No saturation for whites
-                  const lightness = 95 + Math.random() * 5; // 95-100% lightness for whites
+                  // Generate various shades of light green
+                  const hue = 120; // Green hue
+                  const saturation = 15; // Low saturation for subtle green
+                  const lightness = 95 + Math.random() * 5; // 95-100% lightness for light green
                   return (
                     <Geography
                       key={geo.rsmKey}
@@ -109,7 +125,8 @@ const Map = ({
                       coord,
                       safeMapData.danger.radius[index],
                       "danger",
-                      safeMapData.danger.names[index]
+                      safeMapData.danger.names[index],
+                      index
                     )
                   }
                   onMouseEnter={() => {
@@ -143,7 +160,8 @@ const Map = ({
                       coord,
                       safeMapData.caution.radius[index],
                       "caution",
-                      safeMapData.caution.names[index]
+                      safeMapData.caution.names[index],
+                      index
                     )
                   }
                   onMouseEnter={() => {
