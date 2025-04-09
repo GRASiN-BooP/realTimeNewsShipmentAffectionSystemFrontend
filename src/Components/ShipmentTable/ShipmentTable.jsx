@@ -146,7 +146,7 @@ export default function ShipmentTable({ shipments = [] }) {
                         shipment.delay > 3
                           ? "bg-red-500/25 text-red-500"
                           : shipment.delay > 1
-                          ? "bg-orange-500/25 text-orange-500"
+                          ? "bg-yellow-500/25 text-yellow-500"
                           : "bg-green-500/25 text-green-500"
                       }`}
                     >

@@ -108,6 +108,7 @@ export default function parseIncidentsData(apiData) {
         },
         incidentId: incidentId,
         affectedAreaNames: affectedAreaNames,
+        shipmentIncidentTypes: Array.from(shipmentIncidentTypes), // Add shipment incident types to each shipment
       });
     }
 
