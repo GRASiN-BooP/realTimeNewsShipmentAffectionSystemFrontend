@@ -49,7 +49,14 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/noCodeDashboard" element={<NoCodeDashboard />} />
+            <Route
+              path="/noCodeDashboard"
+              element={
+                <ProtectedRoute>
+                  <NoCodeDashboard />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </UserContextProvider>
       </Router>
