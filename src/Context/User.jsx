@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { ENDPOINTS, axiosInstance } from "../Services/API";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -15,6 +15,23 @@ export default function UserContextProvider({ children }) {
     return storedToken ? storedToken : null;
   });
 
+  useEffect(() => {
+    if (token) {
+      const tokenExpiration = localStorage.getItem("tokenExpiration");
+      const timeLeft = tokenExpiration - Date.now();
+
+      if (timeLeft > 0) {
+        const timeout = setTimeout(() => {
+          logout(); // your logout logic
+        }, timeLeft);
+
+        return () => clearTimeout(timeout);
+      } else {
+        logout();
+      }
+    }
+  }, [token]);
+
   const login = async (email, password) => {
     const loadingToast = toast.loading("Logging in...");
     try {
@@ -27,15 +44,9 @@ export default function UserContextProvider({ children }) {
         setToken(response.data.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.data.user));
         localStorage.setItem("token", response.data.data.token);
+        localStorage.setItem("tokenExpiration", 24 * 60 * 60 * 1000);
         toast.dismiss(loadingToast);
         toast.success("Successfully logged in!");
-        setTimeout(() => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          setUser(null);
-          setToken(null);
-          navigate("/authenticate");
-        }, 24 * 60 * 60 * 1000);
         return true;
       } else {
         throw new Error(response.data.message);
