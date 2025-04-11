@@ -29,7 +29,13 @@ export default function UserContextProvider({ children }) {
         localStorage.setItem("token", response.data.data.token);
         toast.dismiss(loadingToast);
         toast.success("Successfully logged in!");
-        return true;
+        setTimeout(() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          setUser(null);
+          setToken(null);
+          navigate("/authenticate");
+        }, 24 * 60 * 60 * 1000);
       } else {
         throw new Error(response.data.message);
       }
