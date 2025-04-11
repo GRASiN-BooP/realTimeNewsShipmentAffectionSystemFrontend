@@ -18,7 +18,7 @@ export default function UserContextProvider({ children }) {
   useEffect(() => {
     if (token) {
       const tokenExpiration = localStorage.getItem("tokenExpiration");
-      const timeLeft = tokenExpiration - Date.now();
+      const timeLeft = Number(tokenExpiration) - Date.now();
 
       if (timeLeft > 0) {
         const timeout = setTimeout(() => {
@@ -44,7 +44,10 @@ export default function UserContextProvider({ children }) {
         setToken(response.data.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.data.user));
         localStorage.setItem("token", response.data.data.token);
-        localStorage.setItem("tokenExpiration", 24 * 60 * 60 * 1000);
+        localStorage.setItem(
+          "tokenExpiration",
+          Date.now() + 24 * 60 * 60 * 1000
+        );
         toast.dismiss(loadingToast);
         toast.success("Successfully logged in!");
         return true;
