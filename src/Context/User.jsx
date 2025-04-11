@@ -36,6 +36,7 @@ export default function UserContextProvider({ children }) {
           setToken(null);
           navigate("/authenticate");
         }, 24 * 60 * 60 * 1000);
+        return true;
       } else {
         throw new Error(response.data.message);
       }
