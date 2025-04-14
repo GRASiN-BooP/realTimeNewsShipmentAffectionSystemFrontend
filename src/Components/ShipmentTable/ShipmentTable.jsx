@@ -179,7 +179,7 @@ export default function ShipmentTable({ shipments = [] }) {
                   <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
                     <span
                       className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm ${
-                        shipment.impact > 6.5
+                        shipment.impact > 7
                           ? "bg-red-500/25 text-red-500"
                           : shipment.impact > 3.5
                           ? "bg-yellow-500/25 text-yellow-500"
@@ -192,9 +192,9 @@ export default function ShipmentTable({ shipments = [] }) {
                   <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
                     <span
                       className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs sm:text-sm ${
-                        shipment.delay > 3
+                        shipment.delay > 10
                           ? "bg-red-500/25 text-red-500"
-                          : shipment.delay > 1
+                          : shipment.delay > 5
                           ? "bg-yellow-500/25 text-yellow-500"
                           : "bg-green-500/25 text-green-500"
                       }`}
