@@ -36,8 +36,8 @@ const NewsCardRotator = ({ newsItems = [], interval = 5000 }) => {
   const processNewsItems = (items, isDefault = false) => {
     return items.map((item) => ({
       ...item,
-      title: trimToWords(item.title, 4),
-      description: trimToWords(item.description, isDefault ? 10 : 10),
+      title: trimToWords(item.title, 3),
+      description: trimToWords(item.description, isDefault ? 10 : 6),
     }));
   };
 
