@@ -222,8 +222,6 @@ export default function UserContextProvider({ children }) {
         getIncidents,
         getShipmentStatusChartData,
         getPlaceName,
-        setToken,
-        setUser,
       }}
     >
       {children}
