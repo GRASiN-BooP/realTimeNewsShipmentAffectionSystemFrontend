@@ -16,6 +16,8 @@ export default function parseIncidentsData(apiData) {
 
   const shipments = [];
   const news = [];
+  const addedShipments = new Set(); // Track unique shipments
+  const addedNews = new Set(); // Track unique news items
 
   const severityToRadius = {
     High: 10,
@@ -95,21 +97,26 @@ export default function parseIncidentsData(apiData) {
         shipmentIncidentTypes.add(shipment.incident.trim());
       }
 
-      shipments.push({
-        vessel: shipment.vessel_name,
-        originPort: shipment.origin_port,
-        destinationPort: shipment.destination_port,
-        impact: shipment.impact_score,
-        delay: parseInt(shipment.total_delay), // e.g., "30 days" → 30
-        incidentType: shipment.incident.trim(),
-        coordinates: {
-          latitude: shipment.current_coordinates.latitude,
-          longitude: shipment.current_coordinates.longitude,
-        },
-        incidentId: incidentId,
-        affectedAreaNames: affectedAreaNames,
-        shipmentIncidentTypes: Array.from(shipmentIncidentTypes), // Add shipment incident types to each shipment
-      });
+      const shipmentKey = `${shipment.vessel_name}-${shipment.origin_port}-${shipment.destination_port}-${shipment.current_coordinates.latitude}-${shipment.current_coordinates.longitude}`;
+
+      if (!addedShipments.has(shipmentKey)) {
+        shipments.push({
+          vessel: shipment.vessel_name,
+          originPort: shipment.origin_port,
+          destinationPort: shipment.destination_port,
+          impact: shipment.impact_score,
+          delay: parseInt(shipment.total_delay), // e.g., "30 days" → 30
+          incidentType: shipment.incident.trim(),
+          coordinates: {
+            latitude: shipment.current_coordinates.latitude,
+            longitude: shipment.current_coordinates.longitude,
+          },
+          incidentId: incidentId,
+          affectedAreaNames: affectedAreaNames,
+          shipmentIncidentTypes: Array.from(shipmentIncidentTypes),
+        });
+        addedShipments.add(shipmentKey);
+      }
     }
 
     // Parse news
@@ -128,17 +135,22 @@ export default function parseIncidentsData(apiData) {
         }
       }
 
-      news.push({
-        id: newsIdCounter++,
-        title: newsItem.title,
-        description: newsItem.summary,
-        image: imageUrl,
-        incidentType: incident.type,
-        url: newsItem.url || "#", // fallback URL
-        incidentId: incidentId,
-        affectedAreaNames: affectedAreaNames,
-        shipmentIncidentTypes: Array.from(shipmentIncidentTypes), // Add shipment incident types
-      });
+      const newsKey = `${newsItem.title}-${newsItem.summary}-${imageUrl}`;
+
+      if (!addedNews.has(newsKey)) {
+        news.push({
+          id: newsIdCounter++,
+          title: newsItem.title,
+          description: newsItem.summary,
+          image: imageUrl,
+          incidentType: incident.type,
+          url: newsItem.url || "#", // fallback URL
+          incidentId: incidentId,
+          affectedAreaNames: affectedAreaNames,
+          shipmentIncidentTypes: Array.from(shipmentIncidentTypes),
+        });
+        addedNews.add(newsKey);
+      }
     }
   }
 
