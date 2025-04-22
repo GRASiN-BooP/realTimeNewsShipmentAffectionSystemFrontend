@@ -190,7 +190,7 @@ export default function UserContextProvider({ children }) {
       return false;
     }
   };
-  const getPlaceName = async (lat, lng) => {
+  const getPlaceName = async (lat, lng, shipment) => {
     const apiKey = import.meta.env.VITE_OPEN_CAGE_API_KEY;
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
     try {
@@ -200,7 +200,7 @@ export default function UserContextProvider({ children }) {
       if (result) {
         return result.formatted;
       } else {
-        toast.error("Location not found");
+        toast.error(`Location not found for ${shipment}`);
         return false;
       }
     } catch (error) {

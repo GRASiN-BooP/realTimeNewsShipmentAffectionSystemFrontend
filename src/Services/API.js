@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const BASE_URL =
-  "https://shipment-tracker-with-real-time-news-1.onrender.com/api";
+const BASE_URL = "http://192.168.0.109:3000/api";
 
 const ENDPOINTS = {
   LOGIN: "/auth/login",

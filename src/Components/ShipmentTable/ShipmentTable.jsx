@@ -15,7 +15,6 @@ export default function ShipmentTable({ shipments = [] }) {
   useEffect(() => {
     const fetchPlaceNames = async () => {
       const newPlaceNames = {};
-
       for (const shipment of shipments) {
         if (
           shipment.coordinates &&
@@ -23,13 +22,12 @@ export default function ShipmentTable({ shipments = [] }) {
           shipment.coordinates.longitude
         ) {
           const key = `${shipment.coordinates.latitude},${shipment.coordinates.longitude}`;
-
-          // Only fetch if we don't already have this place name
           if (!newPlaceNames[key]) {
             try {
               const placeName = await getPlaceName(
                 shipment.coordinates.latitude,
-                shipment.coordinates.longitude
+                shipment.coordinates.longitude,
+                shipment.shipment
               );
               newPlaceNames[key] = placeName || "Unknown";
             } catch (error) {
@@ -123,7 +121,7 @@ export default function ShipmentTable({ shipments = [] }) {
                   className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base cursor-pointer text-gray-600"
                   onClick={() => handleSort("vessel")}
                 >
-                  Vessel{" "}
+                  Tracking Number{" "}
                   {sortField === "vessel"
                     ? sortOrder === "asc"
                       ? "↑"
@@ -168,7 +166,7 @@ export default function ShipmentTable({ shipments = [] }) {
                   onClick={() => handleRowClick(shipment)}
                 >
                   <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
-                    {shipment.vessel}
+                    {shipment.shipment}
                   </td>
                   <td className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base">
                     {shipment.originPort}

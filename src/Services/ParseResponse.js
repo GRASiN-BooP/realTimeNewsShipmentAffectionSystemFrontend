@@ -102,6 +102,7 @@ export default function parseIncidentsData(apiData) {
       if (!addedShipments.has(shipmentKey)) {
         shipments.push({
           vessel: shipment.vessel_name,
+          shipment: shipment.tracking_number,
           originPort: shipment.origin_port,
           destinationPort: shipment.destination_port,
           impact: shipment.impact_score,
