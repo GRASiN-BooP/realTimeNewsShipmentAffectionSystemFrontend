@@ -212,6 +212,7 @@ export default function ShipmentTable({ shipments = [] }) {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={selectedShipment?.vessel}
+        shipment={selectedShipment?.shipment}
         data={selectedShipment}
       />
     </div>
