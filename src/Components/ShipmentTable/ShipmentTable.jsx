@@ -44,21 +44,17 @@ export default function ShipmentTable({ shipments = [] }) {
     fetchPlaceNames();
   }, [shipments, getPlaceName]);
 
-  // Unique incidents for filtering
   const uniqueIncidents = [
     "All Shipments",
     ...new Set(shipments.map((s) => s.incidentType)),
   ];
 
-  // Handle sorting
   const handleSort = (field) => {
     setSortOrder(sortField === field && sortOrder === "asc" ? "desc" : "asc");
     setSortField(field);
   };
 
-  // Handle row click
   const handleRowClick = (shipment) => {
-    // Add place name to the shipment data before opening modal
     const shipmentWithPlaceName = { ...shipment };
     if (
       shipment.coordinates &&
@@ -68,12 +64,10 @@ export default function ShipmentTable({ shipments = [] }) {
       const key = `${shipment.coordinates.latitude},${shipment.coordinates.longitude}`;
       shipmentWithPlaceName.placeName = placeNames[key] || "Unknown";
     }
-
     setSelectedShipment(shipmentWithPlaceName);
     setIsModalOpen(true);
   };
 
-  // Memoized filtering and sorting
   const filteredShipments = useMemo(() => {
     return shipments
       .filter((shipment) =>
@@ -138,7 +132,7 @@ export default function ShipmentTable({ shipments = [] }) {
                   className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base cursor-pointer text-gray-600"
                   onClick={() => handleSort("impact")}
                 >
-                  Impact{" "}
+                  News Severity
                   {sortField === "impact"
                     ? sortOrder === "asc"
                       ? "↑"
@@ -149,7 +143,7 @@ export default function ShipmentTable({ shipments = [] }) {
                   className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 text-sm sm:text-base cursor-pointer text-gray-600"
                   onClick={() => handleSort("delay")}
                 >
-                  Delay
+                  Probable Delay
                   {sortField === "delay"
                     ? sortOrder === "asc"
                       ? "↑"

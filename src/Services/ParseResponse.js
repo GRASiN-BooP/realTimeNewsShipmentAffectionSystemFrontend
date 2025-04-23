@@ -115,6 +115,7 @@ export default function parseIncidentsData(apiData) {
           incidentId: incidentId,
           affectedAreaNames: affectedAreaNames,
           shipmentIncidentTypes: Array.from(shipmentIncidentTypes),
+          containerInfo: shipment.container_details,
         });
         addedShipments.add(shipmentKey);
       }

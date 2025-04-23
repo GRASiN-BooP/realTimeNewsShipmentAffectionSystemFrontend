@@ -6,7 +6,7 @@ function ModalComponent({ isOpen, onClose, title, data, shipment }) {
 
   return (
     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+      <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-700">
             Shipment: {shipment} in Vessel: {title}
@@ -39,7 +39,7 @@ function ModalComponent({ isOpen, onClose, title, data, shipment }) {
               </div>
               <div className="bg-gray-50 p-3 rounded-lg">
                 <h3 className="text-sm font-semibold text-gray-500">
-                  Impact Score
+                  News Severity
                 </h3>
                 <div
                   className={`inline-block px-3 py-1 rounded-full text-sm ${
@@ -54,7 +54,9 @@ function ModalComponent({ isOpen, onClose, title, data, shipment }) {
                 </div>
               </div>
               <div className="bg-gray-50 p-3 rounded-lg">
-                <h3 className="text-sm font-semibold text-gray-500">Delay</h3>
+                <h3 className="text-sm font-semibold text-gray-500">
+                  Probable Delay
+                </h3>
                 <div
                   className={`inline-block px-3 py-1 rounded-full text-sm ${
                     data.delay > 3
@@ -145,6 +147,29 @@ function ModalComponent({ isOpen, onClose, title, data, shipment }) {
                   </div>
                 </div>
               )}
+              <div className="bg-gray-50 p-3 rounded-lg gap-2 flex flex-col">
+                <h3 className="text-sm font-semibold text-gray-500">
+                  Container Info
+                </h3>
+                <div className="inline-block px-3 py-1 w-max bg-amber-100 text-amber-800 rounded-full text-sm">
+                  Number of containers: {data.containerInfo.count}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {data.containerInfo.containers.map((container, index) => (
+                    <div key={index} className="flex flex-row flex-wrap gap-1">
+                      <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">
+                        Container: {container.container_number}
+                      </div>
+                      <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">
+                        Size: {container.size}
+                      </div>
+                      <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">
+                        Type: {container.type}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         )}

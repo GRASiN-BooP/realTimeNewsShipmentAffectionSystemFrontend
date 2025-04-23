@@ -82,7 +82,7 @@ const MapWithShipments = ({ mapData, shipments }) => {
                   <thead>
                     <tr className="bg-gray-50 text-left">
                       <th className="px-4 py-2 text-sm font-medium text-gray-600">
-                        Vessel
+                        Tracking Number
                       </th>
                       <th className="px-4 py-2 text-sm font-medium text-gray-600">
                         Origin Port
@@ -91,17 +91,19 @@ const MapWithShipments = ({ mapData, shipments }) => {
                         Destination Port
                       </th>
                       <th className="px-4 py-2 text-sm font-medium text-gray-600">
-                        Impact
+                        News Severity
                       </th>
                       <th className="px-4 py-2 text-sm font-medium text-gray-600">
-                        Delay
+                        Probable Delay
                       </th>
                     </tr>
                   </thead>
                   <tbody className="text-gray-500">
                     {selectedArea.affectedShipments.map((shipment, index) => (
                       <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-4 py-2 text-sm">{shipment.vessel}</td>
+                        <td className="px-4 py-2 text-sm">
+                          {shipment.shipment}
+                        </td>
                         <td className="px-4 py-2 text-sm">
                           {shipment.originPort}
                         </td>
@@ -111,7 +113,7 @@ const MapWithShipments = ({ mapData, shipments }) => {
                         <td className="px-4 py-2 text-sm">
                           <span
                             className={`px-2 py-1 rounded text-xs ${
-                              shipment.impact > 6.5
+                              shipment.impact > 7
                                 ? "bg-red-500/25 text-red-500"
                                 : shipment.impact > 3.5
                                 ? "bg-yellow-500/25 text-yellow-500"
@@ -124,10 +126,10 @@ const MapWithShipments = ({ mapData, shipments }) => {
                         <td className="px-4 py-2 text-sm">
                           <span
                             className={`px-2 py-1 rounded text-xs ${
-                              shipment.delay > 3
+                              shipment.delay > 10
                                 ? "bg-red-500/25 text-red-500"
-                                : shipment.delay > 1
-                                ? "bg-orange-500/25 text-orange-500"
+                                : shipment.delay > 5
+                                ? "bg-yellow-500/25 text-yellow-500"
                                 : "bg-green-500/25 text-green-500"
                             }`}
                           >
