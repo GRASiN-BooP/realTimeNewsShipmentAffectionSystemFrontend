@@ -147,28 +147,36 @@ function ModalComponent({ isOpen, onClose, title, data, shipment }) {
                   </div>
                 </div>
               )}
-              <div className="bg-gray-50 p-3 rounded-lg gap-2 flex flex-col">
-                <h3 className="text-sm font-semibold text-gray-500">
-                  Container Info
-                </h3>
-                <div className="inline-block px-3 py-1 w-max bg-amber-100 text-amber-800 rounded-full text-sm">
-                  Number of containers: {data.containerInfo.count}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {data.containerInfo.containers.map((container, index) => (
-                    <div key={index} className="flex flex-row flex-wrap gap-1">
-                      <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg gap-2 flex flex-col w-full">
+              <h3 className="text-sm font-semibold text-gray-500">
+                Container Info
+              </h3>
+              <div className="inline-block px-3 py-1 w-max bg-amber-100 text-amber-800 rounded-full text-sm">
+                Number of containers: {data.containerInfo.count}
+              </div>
+              <div className="flex flex-row gap-4 w-full overflow-x-auto hide-scrollbar">
+                {data.containerInfo.containers.map((container, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col gap-1 bg-gray-100 p-3 rounded-md min-w-[300px]"
+                  >
+                    <p className="text-gray-500 font-medium">
+                      Container {index + 1}
+                    </p>
+                    <div className="flex flex-row flex-wrap gap-2 max-w-72">
+                      <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm whitespace-nowrap">
                         Container: {container.container_number}
                       </div>
-                      <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">
+                      <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm whitespace-nowrap">
                         Size: {container.size}
                       </div>
-                      <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">
+                      <div className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm whitespace-nowrap">
                         Type: {container.type}
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
