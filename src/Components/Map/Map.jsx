@@ -23,8 +23,8 @@ const Map = ({
   });
 
   const statusLegends = [
-    { name: "Caution", color: "#FFA500" },
-    { name: "Danger", color: "#FF0000" },
+    { name: "Slightly Affected", color: "#FFA500" },
+    { name: "Severely Affected", color: "#FF0000" },
   ];
 
   const handleAreaClick = (coordinates, radius, type, name, index) => {
