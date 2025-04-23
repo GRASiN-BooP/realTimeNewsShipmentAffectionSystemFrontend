@@ -200,12 +200,10 @@ export default function UserContextProvider({ children }) {
       if (result) {
         return result.formatted;
       } else {
-        toast.error(`Location not found for ${shipment}`);
         return false;
       }
     } catch (error) {
       console.error("Error fetching location:", error.message);
-      toast.error("Error fetching location");
       return false;
     }
   };
